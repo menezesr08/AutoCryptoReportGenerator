@@ -75,5 +75,4 @@ def initialise_notification():
         timeout=10,  # seconds
     )
 
-# TODO: the icon path is hardcoded. Need to find a way to make this dynamic
-# TODO: try to set regular notification updates on task scheduler, not just daily
+
