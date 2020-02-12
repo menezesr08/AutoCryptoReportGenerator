@@ -1,0 +1,5 @@
+matplotlib
+plyer
+requests
+pywin32
+setuptools
