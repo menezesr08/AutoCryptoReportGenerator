@@ -1,4 +1,4 @@
-class CryptoDataModel:
+class CryptoDataModel(object):
     def __init__(self, time, high, low, open, volumefrom, volumeto, close):
         self.time = time,
         self.high = high,
