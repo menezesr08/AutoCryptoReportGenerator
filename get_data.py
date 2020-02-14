@@ -7,8 +7,7 @@ import datetime
 import matplotlib.pyplot as plt
 
 todayBTCPriceURL = "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,JPY,EUR"
-weeklyBTCPricesURL = 'https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=7']]]]]]]]=###=]=]=#=#]=#]=#=#
-
+weeklyBTCPricesURL = 'https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=7'
 
 # Retrieve the current bitcoin price
 def get_today_btc_price():
