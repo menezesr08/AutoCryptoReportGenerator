@@ -1,44 +1,26 @@
-# TODO: Decide where to format JSON data
-# SubTodos / Notes for this task
-# Notes: Difficult to decide so create manager class and see if its too much code
-# TODO: Create a class that takes the formatted data and performs operations
-# SubTodos for this task
-# --------------------------------------------------------------------
-# TODO: Decide where to plot your results
-# SubTodos for this task
-# --------------------------------------------------------------------
-# TODO: send email of results
-# SubTodos for this task
-# --------------------------------------------------------------------
-import requests
-import json
+from functools import reduce
 
 from CryptoDataModel import CryptoDataModel
 
 
 class ReportGenerator:
-    def __init__(self, days):
-        self.weeklyBTCPricesURL = f'https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit={days}'
+    def __init__(self, data):
+        self.data = data
 
-    # Parse json data to get relevant information
-    def parse_json_data(self):
-        response = requests.get(self.weeklyBTCPricesURL)
-        bitcoin_data = response.json()
-        outer_level_data = bitcoin_data['Data']
-        inner_level_data = outer_level_data['Data']
-        return inner_level_data
+    def average_bitcoin_price(self):
+        average = []
+        price = int(reduce(self.add_two_values, self.data) / len(self.data))
+        print(price)
 
-    def get_crypto_data(self):
-        # returns a list of objects
-        json_data = self.parse_json_data()
-        btc_data_list = []
-        for item in json_data:
-            data = CryptoDataModel(item)
-            btc_data_list.append(data)
+    # making sure we add floats together
+    @staticmethod
+    def add_two_values(a, b):
+        if isinstance(a, CryptoDataModel):
+            a = a.close
 
-        return btc_data_list
+        if isinstance(b, CryptoDataModel):
+            b = b.close
 
+        return a + b
 
-generator = ReportGenerator(7)
-
-print(generator.format_data())
+    # Todo: get list of weekly btc prices
