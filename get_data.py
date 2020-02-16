@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 todayBTCPriceURL = "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,JPY,EUR"
 weeklyBTCPricesURL = 'https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=7'
 
+
 # Retrieve the current bitcoin price
 def get_today_btc_price():
     response = requests.get(todayBTCPriceURL)
@@ -48,9 +49,9 @@ def plot_weekly_btc_prices():
     plt.plot(dates, bitcoin_prices, 'go--', color='brown', linewidth=1, markersize=12)
     plt.ylabel('Price of a single bitcoin in dollars')
     plt.xlabel('Days of the week')
-    plt.show()\
-
-
+    plt.show() \
+ \
+ \
 # Retrieve weekly bitcoin data from API
 def get_weekly_btc_data():
     response = requests.get(weeklyBTCPricesURL)
@@ -73,5 +74,3 @@ def initialise_notification():
         app_icon=r'C:\Users\menez\PycharmProjects\Stock_Notifier\btc.ico',
         timeout=10,  # seconds
     )
-
-
