@@ -1,9 +1,4 @@
-# TODO: Decide where to format JSON data
-# SubTodos / Notes for this task
-# Notes: Difficult to decide so create manager class and see if its too much code
-# TODO: Create a class that takes the formatted data and performs operations
-# SubTodos for this task
-# --------------------------------------------------------------------
+
 # TODO: Decide where to plot your results
 # SubTodos for this task
 # --------------------------------------------------------------------
@@ -23,14 +18,14 @@ class CryptoReport:
         self.api_key = '738510752db4953d28dfc15ff4da8812af46d98dd961da115924cc5933ceb808'
         self.weeklyBTCPricesURL = f'https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit={days}&api_key={self.api_key}'
 
-    # Todo: fix this method
+    # Todo: getting data from api is slow. Difficult to find a fix. Keep researching. (Not important task atm)
     def get_data_from_api(self):
         try:
             response = requests.get(self.weeklyBTCPricesURL, timeout=1)
         except Timeout:
             print('The request timed out')
         else:
-            return response.json
+            return response.json()
 
     # Parse json data to get relevant information
     def parse_json_data(self):
@@ -51,10 +46,10 @@ class CryptoReport:
 
     def create_report(self):
         report = ReportGenerator(self.get_crypto_data())
-        print(report.get_all_prices())
+        report.plot_weekly_btc_prices()
 
 
-report = CryptoReport(1)
+report = CryptoReport(7)
 report.create_report()
 
 
