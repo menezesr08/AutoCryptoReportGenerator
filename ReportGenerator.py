@@ -1,6 +1,7 @@
 from functools import reduce
 
 from CryptoDataModel import CryptoDataModel
+import datetime
 
 
 class ReportGenerator:
@@ -24,3 +25,16 @@ class ReportGenerator:
         return a + b
 
     # Todo: get list of weekly btc prices
+    def get_all_prices(self):
+        bitcoin_prices = []
+        dates = []
+        for index, item in enumerate(self.data):
+            bitcoin_prices.append(int(item.close))
+
+        for index, item in enumerate(self.data):
+            timestamp = (int(item.time))
+            dates.append(datetime.datetime.fromtimestamp(timestamp))
+
+        dates = [(date.strftime("%a") + ' ' + str(date.day)) for date in dates]
+
+        return bitcoin_prices, dates
