@@ -2,7 +2,7 @@ from functools import reduce
 
 from CryptoDataModel import CryptoDataModel
 import datetime
-
+import matplotlib.pyplot as plt
 
 class ReportGenerator:
     def __init__(self, data):
@@ -38,3 +38,12 @@ class ReportGenerator:
         dates = [(date.strftime("%a") + ' ' + str(date.day)) for date in dates]
 
         return bitcoin_prices, dates
+
+    # TODO: think about different type of plots that we can add to pdf
+    def plot_weekly_btc_prices(self):
+        bitcoin_prices, dates = self.get_all_prices()
+        plt.plot(dates, bitcoin_prices, 'go--', color='brown', linewidth=1, markersize=12)
+        plt.ylabel('Price of a single bitcoin in dollars')
+        plt.xlabel('Days of the week')
+        plt.show()
+
