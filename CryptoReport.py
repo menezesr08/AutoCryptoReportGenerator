@@ -15,16 +15,26 @@ import json
 
 from CryptoDataModel import CryptoDataModel
 from ReportGenerator import ReportGenerator
+from requests.exceptions import Timeout
 
 
 class CryptoReport:
     def __init__(self, days):
-        self.weeklyBTCPricesURL = f'https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit={days}'
+        self.api_key = '738510752db4953d28dfc15ff4da8812af46d98dd961da115924cc5933ceb808'
+        self.weeklyBTCPricesURL = f'https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit={days}&api_key={self.api_key}'
+
+    # Todo: fix this method
+    def get_data_from_api(self):
+        try:
+            response = requests.get(self.weeklyBTCPricesURL, timeout=1)
+        except Timeout:
+            print('The request timed out')
+        else:
+            return response.json
 
     # Parse json data to get relevant information
     def parse_json_data(self):
-        response = requests.get(self.weeklyBTCPricesURL)
-        bitcoin_data = response.json()
+        bitcoin_data = self.get_data_from_api()
         outer_level_data = bitcoin_data['Data']
         inner_level_data = outer_level_data['Data']
         return inner_level_data
@@ -41,10 +51,10 @@ class CryptoReport:
 
     def create_report(self):
         report = ReportGenerator(self.get_crypto_data())
-        report.average_bitcoin_price()
+        print(report.get_all_prices())
 
 
-report = CryptoReport(7)
+report = CryptoReport(1)
 report.create_report()
 
 
