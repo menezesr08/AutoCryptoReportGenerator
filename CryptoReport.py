@@ -46,7 +46,7 @@ class CryptoReport:
 
     def create_report(self):
         report = ReportGenerator(self.get_crypto_data())
-        report.plot_weekly_btc_prices()
+        report.plot_open_low_prices()
 
 
 report = CryptoReport(7)
