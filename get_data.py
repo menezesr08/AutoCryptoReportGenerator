@@ -49,9 +49,9 @@ def plot_weekly_btc_prices():
     plt.plot(dates, bitcoin_prices, 'go--', color='brown', linewidth=1, markersize=12)
     plt.ylabel('Price of a single bitcoin in dollars')
     plt.xlabel('Days of the week')
-    plt.show() \
- \
- \
+    plt.show()
+
+
 # Retrieve weekly bitcoin data from API
 def get_weekly_btc_data():
     response = requests.get(weeklyBTCPricesURL)

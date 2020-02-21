@@ -46,10 +46,10 @@ class CryptoReport:
 
     def create_report(self):
         report = ReportGenerator(self.get_crypto_data())
-        report.plot_open_low_prices()
+        print(report.plot_open_low_prices())
 
 
-report = CryptoReport(7)
+report = CryptoReport(14)
 report.create_report()
 
 
