@@ -2,8 +2,10 @@ from functools import reduce
 
 from CryptoDataModel import CryptoDataModel
 import datetime
+import numpy as np
 import matplotlib.pyplot as plt
 import Helper
+from LinePlot import LinePlot
 
 
 class ReportGenerator:
@@ -35,34 +37,36 @@ class ReportGenerator:
         return first_attribute_values, second_attribute_values
 
     def plot_open_low_prices(self):
+        plt.style.use('fivethirtyeight')
+        x_indexes = np.arange(len(self.dates))
+        width = 0.35
         open_prices, close_prices = self.get_specific_bitcoin_data("open", "close")
-        # fig, axs = plt.subplots(2, constrained_layout=True)
-        # axs[0].plot(dates, open_prices)
-        # axs[0].set_title('Open Prices')
-        # axs[1].plot(dates, close_prices)
-        # axs[1].set_title('Close Prices')
-        # # plt.ylabel('Price of a single bitcoin in dollars')
-        # # plt.xlabel('Days of the week')
-        # plt.show()
-        plt.plot(open_prices, close_prices, 'go--', color='brown', linewidth=1, markersize=8)
+        plt.bar(x_indexes - (width/2), open_prices, width=width,  label="Open Prices")
+        plt.bar(x_indexes + (width/2), close_prices, width=width, color='#444444',  label="Close Prices")
+        plt.legend()
+        plt.xticks(ticks=x_indexes, labels=self.dates)
+        plt.xlabel('Days')
         plt.ylabel('Price of a single bitcoin in dollars')
-        plt.xlabel('Days of the week')
+        plt.tight_layout()
         plt.show()
 
     def plot_btc_prices(self):
-        bitcoin_prices = self.get_all_prices()
-        plt.plot(self.dates, bitcoin_prices, 'go--', color='brown', linewidth=1, markersize=8)
-        plt.ylabel('Price of a single bitcoin in dollars')
-        plt.xlabel('Days of the week')
-        plt.show()
+        # bitcoin_prices = self.get_all_prices()
+        # plt.plot(self.dates, bitcoin_prices, 'go--', color='brown', linewidth=1, markersize=8)
+        # plt.ylabel('Price of a single bitcoin in dollars')
+        # plt.xlabel('Days of the week')
+        # plt.show()
+        plot = LinePlot(self.data, self.get_all_prices())
+        plot.plot_data()
 
     def get_all_dates(self):
         dates = []
         for item in self.data:
             timestamp = (int(item.time))
-            dates.append(datetime.datetime.fromtimestamp(timestamp))
+            dates.append(Helper.get_date(timestamp))
 
-        dates = [(date.strftime("%a") + ' ' + str(date.day)) for date in dates]
+        dates = [Helper.format_date(date) for date in dates]
         return dates
 
     # Todo: watch corey's matplotlib tutorial to get some ideas on different types of plots you could create
+    # Todo: Hide Api Key
