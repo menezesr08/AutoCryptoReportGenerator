@@ -51,12 +51,7 @@ class ReportGenerator:
         plt.show()
 
     def plot_btc_prices(self):
-        # bitcoin_prices = self.get_all_prices()
-        # plt.plot(self.dates, bitcoin_prices, 'go--', color='brown', linewidth=1, markersize=8)
-        # plt.ylabel('Price of a single bitcoin in dollars')
-        # plt.xlabel('Days of the week')
-        # plt.show()
-        plot = LinePlot(self.data, self.get_all_prices())
+        plot = LinePlot(self.get_all_dates(), self.get_all_prices(), color="brown")
         plot.plot_data()
 
     def get_all_dates(self):
