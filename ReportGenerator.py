@@ -1,5 +1,6 @@
 from functools import reduce
 
+from BarPlot import BarPlot
 from CryptoDataModel import CryptoDataModel
 import datetime
 import numpy as np
@@ -37,22 +38,23 @@ class ReportGenerator:
         return first_attribute_values, second_attribute_values
 
     def plot_open_low_prices(self):
-        plt.style.use('fivethirtyeight')
-        x_indexes = np.arange(len(self.dates))
-        width = 0.35
-        open_prices, close_prices = self.get_specific_bitcoin_data("open", "close")
-        plt.bar(x_indexes - (width/2), open_prices, width=width,  label="Open Prices")
-        plt.bar(x_indexes + (width/2), close_prices, width=width, color='#444444',  label="Close Prices")
-        plt.legend()
-        plt.xticks(ticks=x_indexes, labels=self.dates)
-        plt.xlabel('Days')
-        plt.ylabel('Price of a single bitcoin in dollars')
-        plt.tight_layout()
-        plt.show()
+        open_prices, close_prices = self.get_specific_bitcoin_data('open', 'close')
+        bar_plot = BarPlot(self.get_all_dates(), open_prices, close_prices)
+        bar_plot.plot_open_low_prices()
+
+    def plot_high_low_prices(self):
+        low_prices, high_prices = self.get_specific_bitcoin_data('high', 'low')
+        bar_plot = BarPlot(self.get_all_dates(), high_prices, low_prices)
+        bar_plot.plot_high_low_prices()
+
+    def plot_volumefrom_volumeto_price(self):
+        volume_from, volume_to = self.get_specific_bitcoin_data('volumefrom', 'volumeto')
+        bar_plot = BarPlot(self.get_all_dates(), volume_from, volume_to)
+        bar_plot.plot_volumefrom_volumeto_prices()
 
     def plot_btc_prices(self):
-        plot = LinePlot(self.get_all_dates(), self.get_all_prices(), color="brown")
-        plot.plot_data()
+        line_plot = LinePlot(self.get_all_dates(), self.get_all_prices())
+        line_plot.plot_bitcoin_price()
 
     def get_all_dates(self):
         dates = []
