@@ -1,3 +1,4 @@
+pylab
 numpy
 pandas
 matplotlib
