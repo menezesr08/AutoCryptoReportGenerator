@@ -10,7 +10,7 @@ class BarPlot:
         self.dates = dates
         self.width = 0.35
 
-    def plot_open_low_prices(self):
+    def plot_open_close_prices(self):
         rcParams['figure.figsize'] = 10, 5
         plt.style.use('fivethirtyeight')
         x_indexes = np.arange(len(self.dates))

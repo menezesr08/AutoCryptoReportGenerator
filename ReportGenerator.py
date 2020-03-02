@@ -37,10 +37,10 @@ class ReportGenerator:
 
         return first_attribute_values, second_attribute_values
 
-    def plot_open_low_prices(self):
+    def plot_open_close_prices(self):
         open_prices, close_prices = self.get_specific_bitcoin_data('open', 'close')
         bar_plot = BarPlot(self.get_all_dates(), open_prices, close_prices)
-        bar_plot.plot_open_low_prices()
+        bar_plot.plot_open_close_prices()
 
     def plot_high_low_prices(self):
         low_prices, high_prices = self.get_specific_bitcoin_data('high', 'low')
@@ -65,5 +65,4 @@ class ReportGenerator:
         dates = [Helper.format_date(date) for date in dates]
         return dates
 
-    # Todo: watch corey's matplotlib tutorial to get some ideas on different types of plots you could create
     # Todo: Hide Api Key
