@@ -6,6 +6,7 @@ import datetime
 import numpy as np
 import matplotlib.pyplot as plt
 import Helper
+from DoubleLinePlot import DoubleLinePlot
 from LinePlot import LinePlot
 
 
@@ -49,8 +50,8 @@ class ReportGenerator:
 
     def plot_volumefrom_volumeto_price(self):
         volume_from, volume_to = self.get_specific_bitcoin_data('volumefrom', 'volumeto')
-        bar_plot = BarPlot(self.get_all_dates(), volume_from, volume_to)
-        bar_plot.plot_volumefrom_volumeto_prices()
+        subplot = DoubleLinePlot(self.get_all_dates(), volume_from, volume_to)
+        subplot.plot_volumefrom_volumeto_prices()
 
     def plot_btc_prices(self):
         line_plot = LinePlot(self.get_all_dates(), self.get_all_prices())
@@ -64,5 +65,14 @@ class ReportGenerator:
 
         dates = [Helper.format_date(date) for date in dates]
         return dates
+
+    @staticmethod
+    def human_format(num):
+        num = float('{:.3g}'.format(num))
+        magnitude = 0
+        while abs(num) >= 1000:
+            magnitude += 1
+            num /= 1000.0
+        return '{}{}'.format('{:f}'.format(num).rstrip('0').rstrip('.'), ['', 'K', 'M', 'B', 'T'][magnitude])
 
     # Todo: Hide Api Key

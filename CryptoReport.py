@@ -1,4 +1,3 @@
-
 # TODO: Decide where to plot your results
 # SubTodos for this task
 # --------------------------------------------------------------------
@@ -46,12 +45,8 @@ class CryptoReport:
 
     def create_report(self):
         report = ReportGenerator(self.get_crypto_data())
-        #Todo: check this method. Doesnt display both bars
         report.plot_volumefrom_volumeto_price()
 
 
 report = CryptoReport(7)
 report.create_report()
-
-
-
