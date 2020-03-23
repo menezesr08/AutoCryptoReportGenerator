@@ -4,25 +4,24 @@ from pylab import rcParams
 
 
 class BarPlot:
-    def __init__(self, dates, first_data_set, second_data_set):
-        self.first_data_set = first_data_set
-        self.second_data_set = second_data_set
-        self.dates = dates
-        self.width = 0.35
+    width = 0.35
 
-    def plot_open_close_prices(self):
+    @classmethod
+    def plot_open_close_prices(cls, dates, open_prices, close_prices, label):
         rcParams['figure.figsize'] = 10, 5
         plt.style.use('fivethirtyeight')
-        x_indexes = np.arange(len(self.dates))
-        plt.bar(x_indexes - (self.width / 2), self.first_data_set, width=self.width, label='Open prices')
-        plt.bar(x_indexes + (self.width / 2), self.second_data_set, width=self.width, color='Red',
+        x_indexes = np.arange(len(dates))
+        plt.bar(x_indexes - (cls.width / 2), open_prices, width=cls.width, label='Open prices')
+        plt.bar(x_indexes + (cls.width / 2), close_prices, width=cls.width, color='Red',
                 label='Close Prices')
         plt.legend()
+        plt.title = label
         plt.ylabel('Open price vs Close price')
         plt.xlabel('Days')
         plt.subplots_adjust(bottom=.15, left=.10)
-        plt.xticks(ticks=x_indexes, labels=self.dates)
+        plt.xticks(ticks=x_indexes, labels=dates)
         plt.show()
+        plt.savefig(f'images/{label}_plot.png')
 
     def plot_high_low_prices(self):
         rcParams['figure.figsize'] = 10, 5
@@ -51,4 +50,3 @@ class BarPlot:
         plt.subplots_adjust(bottom=.15, left=.10)
         plt.xticks(ticks=x_indexes, labels=self.dates)
         plt.show()
-

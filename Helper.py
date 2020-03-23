@@ -12,3 +12,9 @@ def format_date(date):
 
 def get_date(timestamp):
     return datetime.datetime.fromtimestamp(timestamp)
+
+
+def get_all_dates(time):
+    timestamp = (int(time))
+    date = get_date(timestamp)
+    return format_date(date)

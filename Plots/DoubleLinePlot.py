@@ -1,4 +1,4 @@
-from LinePlot import LinePlot
+from Plots.LinePlot import LinePlot
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -19,8 +19,6 @@ class DoubleLinePlot(LinePlot):
         ax1.set_ylabel('Volume at the start of the day')
         ax2.plot(self.dates, self.second_data_set, 'go--', color='brown', linewidth=self.line_width,
                  markersize=self.marker_size)
-        # Todo: need to convert the y axis to a more readable format. You need to pass the original set of numbers
-        #  but change the yticks to the more readable format
         ax2.set_xlabel('Days of the week')
         ax2.set_ylabel('Volume at the end of the day')
         formatted_y = [self.human_format(num) for num in self.get_min_max()]
