@@ -1,3 +1,4 @@
+from CryptoDataModel import CryptoDataModel
 from CryptoReport import CryptoReport
 from HistoricalDataFormatter import HistoricalDataFormatter
 import pandas as pd
@@ -67,10 +68,7 @@ class ReportGenerator:
     def __init__(self, *options):
         self.options = [option for option in options]
         self.api = CryptoReport(self.options)
-        self.df = pd.read_pickle('historical_data.py')
-        self.list_df = []
-        self.list_df.append(self.df)
-        HistoricalDataFormatter(self.list_df).create_plots()
+        HistoricalDataFormatter(self.api.get_crypto_historical_data()).create_plots()
 
 
-report = ReportGenerator("BTC")
+report = ReportGenerator("BTC", "ETH")

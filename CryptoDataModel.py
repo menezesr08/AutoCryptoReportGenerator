@@ -8,7 +8,7 @@ import Helper
 class CryptoDataModel:
     def __init__(self, dictionary):
         for k, v in dictionary.items():
-            setattr(self, k, v)
+            setattr(self, k, list(v.values()))
 
     def __str__(self):
         date = Helper.get_date(getattr(self, "time"))
