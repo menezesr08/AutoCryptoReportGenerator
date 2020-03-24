@@ -24,8 +24,9 @@ class CryptoReport:
             response = requests.get(url).json()
             outer_level = response['Data']
             df = pd.DataFrame(outer_level['Data'])
-            df.to_pickle('historical_data.py')
-            list_crypto_data.append(df)
+            model = CryptoDataModel(df.to_dict())
+            model.__setattr__('title', currency)
+            list_crypto_data.append(model)
 
         return list_crypto_data
 
