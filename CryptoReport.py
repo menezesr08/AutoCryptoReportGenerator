@@ -20,7 +20,7 @@ class CryptoReport:
     def get_crypto_historical_data(self):
         list_crypto_data = []
         for currency in self.list_of_currencies:
-            url = f'https://min-api.cryptocompare.com/data/v2/histoday?fsym={currency}&tsym=USD&limit=7&api_key={self.api_key}'
+            url = f'https://min-api.cryptocompare.com/data/v2/histoday?fsym={currency}&tsym=USD&limit=5&api_key={self.api_key}'
             response = requests.get(url).json()
             outer_level = response['Data']
             df = pd.DataFrame(outer_level['Data'])

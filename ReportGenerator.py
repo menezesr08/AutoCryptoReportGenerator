@@ -1,6 +1,6 @@
 from CryptoDataModel import CryptoDataModel
 from CryptoReport import CryptoReport
-from HistoricalDataFormatter import HistoricalDataFormatter
+from HistoricalDataPlots import HistoricalDataPlots
 import pandas as pd
 from Plots.BarPlot import BarPlot
 import Helper
@@ -68,7 +68,7 @@ class ReportGenerator:
     def __init__(self, *options):
         self.options = [option for option in options]
         self.api = CryptoReport(self.options)
-        HistoricalDataFormatter(self.api.get_crypto_historical_data()).create_plots()
+        HistoricalDataPlots(self.api.get_crypto_historical_data()).create_plots()
 
 
-report = ReportGenerator("BTC", "ETH")
+report = ReportGenerator("BTC", "ETH", "XRP", "NEXO")

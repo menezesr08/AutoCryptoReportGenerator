@@ -21,7 +21,7 @@ class BarPlot:
         plt.subplots_adjust(bottom=.15, left=.10)
         plt.xticks(ticks=x_indexes, labels=dates)
         plt.show()
-        plt.savefig(f'images/{label}_plot.png')
+        # plt.savefig(f'images/{label}_plot.png')
 
     def plot_high_low_prices(self):
         rcParams['figure.figsize'] = 10, 5
