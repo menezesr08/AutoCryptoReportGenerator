@@ -1,6 +1,7 @@
 from CryptoDataModel import CryptoDataModel
 from CryptoReport import CryptoReport
 from HistoricalDataPlots import HistoricalDataPlots
+import pickle
 import pandas as pd
 from Plots.BarPlot import BarPlot
 import Helper
@@ -68,7 +69,8 @@ class ReportGenerator:
     def __init__(self, *options):
         self.options = [option for option in options]
         self.api = CryptoReport(self.options)
-        HistoricalDataPlots(self.api.get_crypto_historical_data()).create_plots()
+        data = pickle.load(open("save.p", "rb"))
+        HistoricalDataPlots(data).create_plots()
 
 
 report = ReportGenerator("BTC", "ETH", "XRP", "NEXO")

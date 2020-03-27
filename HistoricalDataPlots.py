@@ -25,7 +25,10 @@ class HistoricalDataPlots:
             plt.plot(dates[1:], open_prices, label=crypto_data.title)
             # DoubleLinePlot.plot_open_close_prices(dates, open_prices, close_prices, crypto_data.title)
             # Todo: so we managed to plot lines. However too many lines in a plot looks too populated. Maybe use bar
-            #  or some other method. 
+            #  or some other method. You could use subplots as suggested here:
+            #  Check out historail data on crypto compare and figure out what aggregrate is. Maybe you can plot
+            #  data from different time periods
+            # https://stackoverflow.com/questions/4805048/how-to-get-different-colored-lines-for-different-plots-in-a-single-figure
         plt.legend()
         plt.show()
 

@@ -9,6 +9,7 @@ import pandas as pd
 import json
 
 from CryptoDataModel import CryptoDataModel
+import pickle
 from requests.exceptions import Timeout
 
 
@@ -28,6 +29,7 @@ class CryptoReport:
             model.__setattr__('title', currency)
             list_crypto_data.append(model)
 
+        data = pickle.dump(list_crypto_data, open("save.p", "wb"))
         return list_crypto_data
 
     # # Todo: getting data from api is slow. Difficult to find a fix. Keep researching. (Not important task atm)
