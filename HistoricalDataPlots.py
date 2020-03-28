@@ -30,6 +30,7 @@ class HistoricalDataPlots:
             #  data from different time periods
             # https://stackoverflow.com/questions/4805048/how-to-get-different-colored-lines-for-different-plots-in-a-single-figure
         plt.legend()
+        plt.xticks(rotation=45)
         plt.show()
 
     @staticmethod

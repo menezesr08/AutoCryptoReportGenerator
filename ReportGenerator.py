@@ -69,8 +69,8 @@ class ReportGenerator:
     def __init__(self, *options):
         self.options = [option for option in options]
         self.api = CryptoReport(self.options)
-        data = pickle.load(open("save.p", "rb"))
-        HistoricalDataPlots(data).create_plots()
+        # data = pickle.load(open("save.p", "rb"))
+        HistoricalDataPlots(self.api.get_crypto_historical_data()).create_plots()
 
 
-report = ReportGenerator("BTC", "ETH", "XRP", "NEXO")
+report = ReportGenerator("BTC", "ETH", "XRP")

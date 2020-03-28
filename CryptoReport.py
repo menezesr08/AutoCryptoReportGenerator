@@ -12,6 +12,17 @@ from CryptoDataModel import CryptoDataModel
 import pickle
 from requests.exceptions import Timeout
 
+'''
+The API url takes in a some parameters: 
+- currency: the cryptocurrency chosen by the user
+- limit: the number of records to return. By default the data is returned per day. So limit = 10 means previous 10 days
+- aggregrate: How far apart you want the data. For example if limit = 30 and aggregate = 3, then we are asking the api
+  to return data from 90 days ago spread out in intervals of 3 days. (30 x 3 = 90), hence the data would return 30 
+  records.
+- toTs: you can return historical data from this timestamp. Might be useful for really old data
+  
+'''
+
 
 class CryptoReport:
     def __init__(self, options):
@@ -21,7 +32,8 @@ class CryptoReport:
     def get_crypto_historical_data(self):
         list_crypto_data = []
         for currency in self.list_of_currencies:
-            url = f'https://min-api.cryptocompare.com/data/v2/histoday?fsym={currency}&tsym=USD&limit=5&api_key={self.api_key}'
+            url = f'https://min-api.cryptocompare.com/data/v2/histoday?fsym={currency}&tsym=USD&limit=24&' \
+                  f'aggregate=5&api_key={self.api_key}'
             response = requests.get(url).json()
             outer_level = response['Data']
             df = pd.DataFrame(outer_level['Data'])
@@ -61,4 +73,3 @@ class CryptoReport:
     # def create_report(self):
     #     report = ReportGenerator(self.get_crypto_data())
     #     report.plot_volumefrom_volumeto_price()
-

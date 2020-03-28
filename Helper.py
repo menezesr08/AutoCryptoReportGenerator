@@ -6,7 +6,7 @@ def add_two_values(a, b):
 
 
 def format_date(date):
-    formatted_date = date.strftime("%a") + ' ' + str(date.day)
+    formatted_date = date.strftime("%b") + ' ' + str(date.day)
     return formatted_date
 
 
