@@ -32,13 +32,15 @@ class CryptoReport:
     def get_crypto_historical_data(self):
         list_crypto_data = []
         for currency in self.list_of_currencies:
-            url = f'https://min-api.cryptocompare.com/data/v2/histoday?fsym={currency}&tsym=USD&limit=24&' \
-                  f'aggregate=5&api_key={self.api_key}'
+            url = f'https://min-api.cryptocompare.com/data/v2/histoday?fsym={currency}&tsym=USD&limit=1999&' \
+                  f'api_key={self.api_key}'
             response = requests.get(url).json()
             outer_level = response['Data']
             df = pd.DataFrame(outer_level['Data'])
-            model = CryptoDataModel(df.to_dict())
-            model.__setattr__('title', currency)
+            df.set_index('time')
+            # model = CryptoDataModel(df.to_dict())
+            # model.__setattr__('title', currency)
+            model = {'title': currency, 'data': df}
             list_crypto_data.append(model)
 
         data = pickle.dump(list_crypto_data, open("save.p", "wb"))

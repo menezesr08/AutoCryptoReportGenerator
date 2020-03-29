@@ -1,7 +1,8 @@
 import Helper
 from itertools import repeat
 from Plots.BarPlot import BarPlot
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt, dates, ticker
+import numpy as np
 
 from Plots.DoubleLinePlot import DoubleLinePlot
 
@@ -16,19 +17,26 @@ class HistoricalDataPlots:
     # figure out how to plot open and close prices
     def plot_open_close_prices(self):
         for crypto_data in self.data:
-            open_prices = self.calc_pct_change(crypto_data.open)
-            close_prices = self.calc_pct_change(crypto_data.close)
-            dates = [Helper.format_timestamp(time) for time in crypto_data.time]
-            print(crypto_data.open)
-            print(open_prices)
-            print(dates)
-            plt.plot(dates[1:], open_prices, label=crypto_data.title)
+            data = crypto_data['data']
+            title = crypto_data['title']
+            open_prices = data['open']
+            open_prices.index = data['time'].apply(Helper.format_timestamp)
+            open_prices.plot()
+            # close_prices = self.calc_pct_change(crypto_data.close)
+            # formatted_dates = [Helper.format_timestamp(time) for time in crypto_data.time]
+            # fig, ax = plt.subplots()
+            # ax.plot_date(formatted_dates[1:], open_prices, '-')
+            # locator = dates.MonthLocator()
+            # ax.xaxis.set_major_locator(locator)
+            # plt.plot(dates[1:], open_prices, label=crypto_data.title)
+
             # DoubleLinePlot.plot_open_close_prices(dates, open_prices, close_prices, crypto_data.title)
             # Todo: so we managed to plot lines. However too many lines in a plot looks too populated. Maybe use bar
             #  or some other method. You could use subplots as suggested here:
             #  Check out historail data on crypto compare and figure out what aggregrate is. Maybe you can plot
             #  data from different time periods
             # https://stackoverflow.com/questions/4805048/how-to-get-different-colored-lines-for-different-plots-in-a-single-figure
+
         plt.legend()
         plt.xticks(rotation=45)
         plt.show()
