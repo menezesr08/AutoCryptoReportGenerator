@@ -73,4 +73,4 @@ class ReportGenerator:
         HistoricalDataPlots(self.api.get_crypto_historical_data()).create_plots()
 
 
-report = ReportGenerator("BTC")
+report = ReportGenerator("BTC", "NEXO")

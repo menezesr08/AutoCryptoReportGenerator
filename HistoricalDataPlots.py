@@ -5,6 +5,7 @@ from matplotlib import pyplot as plt, dates, ticker
 import numpy as np
 
 from Plots.DoubleLinePlot import DoubleLinePlot
+from Plots.LinePlot import LinePlot
 
 
 class HistoricalDataPlots:
@@ -19,9 +20,12 @@ class HistoricalDataPlots:
         for crypto_data in self.data:
             data = crypto_data['data']
             title = crypto_data['title']
-            open_prices = data['open']
-            open_prices.index = data['time'].apply(Helper.format_timestamp)
-            open_prices.plot()
+
+            close_prices = data['close']
+            close_prices.index = data['time'].apply(Helper.format_timestamp)
+            LinePlot.plot_historical_data(title, close_prices)
+
+            # slicing data -- open_prices.loc['Feb 21 2016': 'Oct 28 2016'].plot()
             # close_prices = self.calc_pct_change(crypto_data.close)
             # formatted_dates = [Helper.format_timestamp(time) for time in crypto_data.time]
             # fig, ax = plt.subplots()
@@ -36,10 +40,6 @@ class HistoricalDataPlots:
             #  Check out historail data on crypto compare and figure out what aggregrate is. Maybe you can plot
             #  data from different time periods
             # https://stackoverflow.com/questions/4805048/how-to-get-different-colored-lines-for-different-plots-in-a-single-figure
-
-        plt.legend()
-        plt.xticks(rotation=45)
-        plt.show()
 
     @staticmethod
     def calc_pct_change(list_of_values):
