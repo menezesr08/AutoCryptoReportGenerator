@@ -1,3 +1,5 @@
+import pandas as pd
+
 import Helper
 from itertools import repeat
 from Plots.BarPlot import BarPlot
@@ -13,33 +15,32 @@ class HistoricalDataPlots:
         self.data = data
 
     def create_plots(self):
-        self.plot_open_close_prices()
+        self.plot_close_prices()
 
     # figure out how to plot open and close prices
-    def plot_open_close_prices(self):
+    def plot_close_prices(self):
         for crypto_data in self.data:
+            fig, ax = plt.subplots(constrained_layout=True)
+            # get relevant data from outer dataframe
             data = crypto_data['data']
-            title = crypto_data['title']
-
             close_prices = data['close']
-            close_prices.index = data['time'].apply(Helper.format_timestamp)
-            LinePlot.plot_historical_data(title, close_prices)
+            close_prices.index = data['time'].apply(Helper.convert_to_date)
 
-            # slicing data -- open_prices.loc['Feb 21 2016': 'Oct 28 2016'].plot()
-            # close_prices = self.calc_pct_change(crypto_data.close)
-            # formatted_dates = [Helper.format_timestamp(time) for time in crypto_data.time]
-            # fig, ax = plt.subplots()
-            # ax.plot_date(formatted_dates[1:], open_prices, '-')
-            # locator = dates.MonthLocator()
-            # ax.xaxis.set_major_locator(locator)
-            # plt.plot(dates[1:], open_prices, label=crypto_data.title)
+            df_max_prices = pd.DataFrame(
+                data.groupby(data['time'].apply(Helper.convert_to_date).dt.week).close.idxmax())
+            df_max_prices['price_max'] = data.groupby(
+                data['time'].apply(Helper.convert_to_date).dt.week).close.max()
 
-            # DoubleLinePlot.plot_open_close_prices(dates, open_prices, close_prices, crypto_data.title)
-            # Todo: so we managed to plot lines. However too many lines in a plot looks too populated. Maybe use bar
-            #  or some other method. You could use subplots as suggested here:
-            #  Check out historail data on crypto compare and figure out what aggregrate is. Maybe you can plot
-            #  data from different time periods
-            # https://stackoverflow.com/questions/4805048/how-to-get-different-colored-lines-for-different-plots-in-a-single-figure
+            df_min_prices = pd.DataFrame(
+                data.groupby(data['time'].apply(Helper.convert_to_date).dt.month).close.idxmin())
+            df_min_prices['price_min'] = data.groupby(
+                data['time'].apply(Helper.convert_to_date).dt.month).close.min()
+
+            ax.plot(close_prices.index, close_prices)
+            ax.scatter(df_max_prices['close'], df_max_prices['price_max'], color='blue')
+            ax.scatter(df_min_prices['close'], df_min_prices['price_min'], color='red')
+
+            plt.show()
 
     @staticmethod
     def calc_pct_change(list_of_values):

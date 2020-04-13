@@ -6,3 +6,4 @@ plyer
 requests
 pywin32
 setuptools
+mypy

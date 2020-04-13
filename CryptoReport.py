@@ -29,10 +29,10 @@ class CryptoReport:
         self.api_key = '738510752db4953d28dfc15ff4da8812af46d98dd961da115924cc5933ceb808'
         self.list_of_currencies = options
 
-    def get_crypto_historical_data(self):
+    def get_crypto_historical_data(self) -> list:
         list_crypto_data = []
         for currency in self.list_of_currencies:
-            url = f'https://min-api.cryptocompare.com/data/v2/histoday?fsym={currency}&tsym=USD&limit=1999&' \
+            url = f'https://min-api.cryptocompare.com/data/v2/histoday?fsym={currency}&tsym=USD&limit=7&' \
                   f'api_key={self.api_key}'
             response = requests.get(url).json()
             outer_level = response['Data']
@@ -43,7 +43,7 @@ class CryptoReport:
             model = {'title': currency, 'data': df}
             list_crypto_data.append(model)
 
-        data = pickle.dump(list_crypto_data, open("save.p", "wb"))
+        pickle.dump(list_crypto_data, open("save.p", "wb"))
         return list_crypto_data
 
     # # Todo: getting data from api is slow. Difficult to find a fix. Keep researching. (Not important task atm)
