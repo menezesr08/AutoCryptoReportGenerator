@@ -8,6 +8,7 @@ import numpy as np
 
 from Plots.DoubleLinePlot import DoubleLinePlot
 from Plots.LinePlot import LinePlot
+from enums.TimePeriods import TimePeriods
 
 
 class HistoricalDataPlots:
@@ -23,18 +24,12 @@ class HistoricalDataPlots:
             fig, ax = plt.subplots(constrained_layout=True)
             # get relevant data from outer dataframe
             data = crypto_data['data']
+            time_period = crypto_data['time_period']
             close_prices = data['close']
             close_prices.index = data['time'].apply(Helper.convert_to_date)
 
-            df_max_prices = pd.DataFrame(
-                data.groupby(data['time'].apply(Helper.convert_to_date).dt.week).close.idxmax())
-            df_max_prices['price_max'] = data.groupby(
-                data['time'].apply(Helper.convert_to_date).dt.week).close.max()
-
-            df_min_prices = pd.DataFrame(
-                data.groupby(data['time'].apply(Helper.convert_to_date).dt.month).close.idxmin())
-            df_min_prices['price_min'] = data.groupby(
-                data['time'].apply(Helper.convert_to_date).dt.month).close.min()
+            df_max_prices = self.get_max_prices(data, time_period)
+            df_min_prices = self.get_min_prices(data, time_period)
 
             ax.plot(close_prices.index, close_prices)
             ax.scatter(df_max_prices['close'], df_max_prices['price_max'], color='blue')
@@ -43,6 +38,51 @@ class HistoricalDataPlots:
             plt.show()
 
     @staticmethod
-    def calc_pct_change(list_of_values):
-        first_value = repeat(list_of_values[0], len(list_of_values))
-        return [100.0 * a1 / a2 - 100 for a1, a2 in zip(list_of_values[1:], first_value)]
+    def get_max_prices(data, time_period):
+
+        if time_period in TimePeriods and time_period.value is "week":
+            df_max_prices = pd.DataFrame(
+                data.groupby(data['time'].apply(Helper.convert_to_date).dt.week).close.idxmax())
+            df_max_prices['price_max'] = data.groupby(
+                data['time'].apply(Helper.convert_to_date).dt.week).close.max()
+
+            return df_max_prices
+        elif time_period in TimePeriods and time_period.value is "month":
+            df_max_prices = pd.DataFrame(
+                data.groupby(data['time'].apply(Helper.convert_to_date).dt.month).close.idxmax())
+            df_max_prices['price_max'] = data.groupby(
+                data['time'].apply(Helper.convert_to_date).dt.month).close.max()
+
+            return df_max_prices
+        elif time_period in TimePeriods and time_period.value is "year":
+            df_max_prices = pd.DataFrame(
+                data.groupby(data['time'].apply(Helper.convert_to_date).dt.year).close.idxmax())
+            df_max_prices['price_max'] = data.groupby(
+                data['time'].apply(Helper.convert_to_date).dt.year).close.max()
+
+            return df_max_prices
+
+    @staticmethod
+    def get_min_prices(data, time_period):
+
+        if time_period in TimePeriods and time_period.value is "week":
+            df_min_prices = pd.DataFrame(
+                data.groupby(data['time'].apply(Helper.convert_to_date).dt.week).close.idxmin())
+            df_min_prices['price_min'] = data.groupby(
+                data['time'].apply(Helper.convert_to_date).dt.week).close.min()
+
+            return df_min_prices
+        elif time_period in TimePeriods and time_period.value is "month":
+            df_min_prices = pd.DataFrame(
+                data.groupby(data['time'].apply(Helper.convert_to_date).dt.month).close.idxmin())
+            df_min_prices['price_min'] = data.groupby(
+                data['time'].apply(Helper.convert_to_date).dt.month).close.min()
+
+            return df_min_prices
+        elif time_period in TimePeriods and time_period.value is "year":
+            df_min_prices = pd.DataFrame(
+                data.groupby(data['time'].apply(Helper.convert_to_date).dt.year).close.idxmin())
+            df_min_prices['price_min'] = data.groupby(
+                data['time'].apply(Helper.convert_to_date).dt.year).close.min()
+
+            return df_min_prices

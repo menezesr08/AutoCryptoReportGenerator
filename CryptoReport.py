@@ -12,6 +12,8 @@ from CryptoDataModel import CryptoDataModel
 import pickle
 from requests.exceptions import Timeout
 
+from enums.Limits import Limits
+
 '''
 The API url takes in a some parameters: 
 - currency: the cryptocurrency chosen by the user
@@ -25,14 +27,17 @@ The API url takes in a some parameters:
 
 
 class CryptoReport:
-    def __init__(self, options):
+    def __init__(self, options, chosen_date):
         self.api_key = '738510752db4953d28dfc15ff4da8812af46d98dd961da115924cc5933ceb808'
         self.list_of_currencies = options
+        self.chosen_date = chosen_date
+        self.limit = [limit.value for limit in Limits if str(limit.name) is chosen_date]
+
 
     def get_crypto_historical_data(self) -> list:
         list_crypto_data = []
         for currency in self.list_of_currencies:
-            url = f'https://min-api.cryptocompare.com/data/v2/histoday?fsym={currency}&tsym=USD&limit=7&' \
+            url = f'https://min-api.cryptocompare.com/data/v2/histoday?fsym={currency}&tsym=USD&limit={self.limit}&' \
                   f'api_key={self.api_key}'
             response = requests.get(url).json()
             outer_level = response['Data']
@@ -40,7 +45,7 @@ class CryptoReport:
             df.set_index('time')
             # model = CryptoDataModel(df.to_dict())
             # model.__setattr__('title', currency)
-            model = {'title': currency, 'data': df}
+            model = {'title': currency, 'data': df, 'time_period': self.chosen_date}
             list_crypto_data.append(model)
 
         pickle.dump(list_crypto_data, open("save.p", "wb"))

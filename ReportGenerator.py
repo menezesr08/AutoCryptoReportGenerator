@@ -21,10 +21,10 @@ from Plots.LinePlot import LinePlot
 
 
 class ReportGenerator:
-    def __init__(self, *options: str):
+    def __init__(self, *options: str, chosen_date):
         # 'options' has type 'Tuple[str, str...]' (a type of strings)
         self.options: list = [option for option in options]
-        self.api: CryptoReport = CryptoReport(self.options)
+        self.api: CryptoReport = CryptoReport(self.options, chosen_date)
         data = pickle.load(open("save.p", "rb"))
         HistoricalDataPlots(data).create_plots()
 

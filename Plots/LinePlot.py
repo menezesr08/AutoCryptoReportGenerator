@@ -1,10 +1,3 @@
-import matplotlib.pyplot as plt
-import pandas as pd
-
-import Helper
-from CryptoColors import CryptoColors
-
-
 class LinePlot:
     line_width = 1
     marker_size = 8
