@@ -40,21 +40,21 @@ class HistoricalDataPlots:
     @staticmethod
     def get_max_prices(data, time_period):
 
-        if time_period in TimePeriods and time_period.value is "week":
+        if time_period == "week":
             df_max_prices = pd.DataFrame(
                 data.groupby(data['time'].apply(Helper.convert_to_date).dt.week).close.idxmax())
             df_max_prices['price_max'] = data.groupby(
                 data['time'].apply(Helper.convert_to_date).dt.week).close.max()
 
             return df_max_prices
-        elif time_period in TimePeriods and time_period.value is "month":
+        elif time_period == "month":
             df_max_prices = pd.DataFrame(
                 data.groupby(data['time'].apply(Helper.convert_to_date).dt.month).close.idxmax())
             df_max_prices['price_max'] = data.groupby(
                 data['time'].apply(Helper.convert_to_date).dt.month).close.max()
 
             return df_max_prices
-        elif time_period in TimePeriods and time_period.value is "year":
+        elif time_period == "year":
             df_max_prices = pd.DataFrame(
                 data.groupby(data['time'].apply(Helper.convert_to_date).dt.year).close.idxmax())
             df_max_prices['price_max'] = data.groupby(
@@ -65,21 +65,21 @@ class HistoricalDataPlots:
     @staticmethod
     def get_min_prices(data, time_period):
 
-        if time_period in TimePeriods and time_period.value is "week":
+        if time_period == "week":
             df_min_prices = pd.DataFrame(
                 data.groupby(data['time'].apply(Helper.convert_to_date).dt.week).close.idxmin())
             df_min_prices['price_min'] = data.groupby(
                 data['time'].apply(Helper.convert_to_date).dt.week).close.min()
 
             return df_min_prices
-        elif time_period in TimePeriods and time_period.value is "month":
+        elif time_period == "month":
             df_min_prices = pd.DataFrame(
                 data.groupby(data['time'].apply(Helper.convert_to_date).dt.month).close.idxmin())
             df_min_prices['price_min'] = data.groupby(
                 data['time'].apply(Helper.convert_to_date).dt.month).close.min()
 
             return df_min_prices
-        elif time_period in TimePeriods and time_period.value is "year":
+        elif time_period == "year":
             df_min_prices = pd.DataFrame(
                 data.groupby(data['time'].apply(Helper.convert_to_date).dt.year).close.idxmin())
             df_min_prices['price_min'] = data.groupby(
