@@ -30,11 +30,16 @@ class HistoricalDataPlots:
 
             df_max_prices = self.get_max_prices(data, time_period)
             df_min_prices = self.get_min_prices(data, time_period)
+            sim_moving_average = self.calculate_simple_moving_average(data)
+            exp_moving_average = self.calculate_exponential_moving_average(data)
 
-            ax.plot(close_prices.index, close_prices)
-            ax.scatter(df_max_prices['close'], df_max_prices['price_max'], color='blue')
-            ax.scatter(df_min_prices['close'], df_min_prices['price_min'], color='red')
-
+            ax.plot(close_prices.index, close_prices, linestyle="-")
+            ax.scatter(df_max_prices['close'], df_max_prices['price_max'], marker="^", color='blue')
+            ax.scatter(df_min_prices['close'], df_min_prices['price_min'], marker="v", color='red')
+            ax.plot(exp_moving_average['time'].apply(Helper.convert_to_date), exp_moving_average['close'],
+                    linestyle="--", label="EX")
+            ax.plot(sim_moving_average['time'].apply(Helper.convert_to_date), sim_moving_average['close'],
+                    linestyle=":")
             plt.show()
 
     @staticmethod
@@ -86,3 +91,13 @@ class HistoricalDataPlots:
                 data['time'].apply(Helper.convert_to_date).dt.year).close.min()
 
             return df_min_prices
+
+    @staticmethod
+    def calculate_exponential_moving_average(data):
+        short_rolling = data.ewm(span=3, adjust=False).mean()
+        return short_rolling
+
+    @staticmethod
+    def calculate_simple_moving_average(data):
+        short_rolling = data.rolling(window=3, min_periods=1).mean()
+        return short_rolling
