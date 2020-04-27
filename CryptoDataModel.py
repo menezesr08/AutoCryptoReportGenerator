@@ -10,7 +10,7 @@ class CryptoDataModel:
         for k, v in dictionary.items():
             setattr(self, k, list(v.values()))
 
-    def __str__(self):
-        date = Helper.get_date(getattr(self, "time"))
-        formatted_date = Helper.format_date(date)
-        return f"Crypto data - {formatted_date}"
+    # def __str__(self):
+    #     date = Helper.get_date(getattr(self, "time"))
+    #     formatted_date = Helper.format_date(date)
+    #     return f"Crypto data - {formatted_date}"

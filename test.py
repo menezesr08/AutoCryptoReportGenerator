@@ -16,4 +16,4 @@ import matplotlib.pyplot as plt
 
 from enums.Limits import Limits
 
-print(Limits.five_years.name)
+print(Limits.FIVE_YEARS.name)

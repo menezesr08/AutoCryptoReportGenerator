@@ -8,7 +8,7 @@ import numpy as np
 
 from Plots.DoubleLinePlot import DoubleLinePlot
 from Plots.LinePlot import LinePlot
-from enums.TimePeriods import TimePeriods
+from enums.ConfigOptions import ConfigOptions
 
 
 class HistoricalDataPlots:

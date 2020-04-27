@@ -13,7 +13,7 @@ import pickle
 from requests.exceptions import Timeout
 
 from enums.Limits import Limits
-from enums.TimePeriods import TimePeriods
+from enums.ConfigOptions import ConfigOptions
 
 '''
 The API url takes in a some parameters: 
@@ -32,8 +32,9 @@ class CryptoReport:
         self.api_key = '738510752db4953d28dfc15ff4da8812af46d98dd961da115924cc5933ceb808'
         self.list_of_currencies = options
         self.chosen_date = chosen_date
-        self.limit, self.time_period = [time_period.value for time_period in TimePeriods if str(time_period.name) is
-                                        chosen_date][0]
+        self.limit, self.time_period, self.window_size = \
+        [option.value for option in ConfigOptions if str(option.name) is
+         chosen_date][0]
 
     # self.time_period = [time_period for time_period in TimePeriods if str(time_period.name) is chosen_date]
 
@@ -46,9 +47,7 @@ class CryptoReport:
             outer_level = response['Data']
             df = pd.DataFrame(outer_level['Data'])
             df.set_index('time')
-            # model = CryptoDataModel(df.to_dict())
-            # model.__setattr__('title', currency)
-            model = {'title': currency, 'data': df, 'time_period': self.time_period}
+            model = {'title': currency, 'data': df, 'time_period': self.time_period, 'window': self.window_size}
             list_crypto_data.append(model)
 
         pickle.dump(list_crypto_data, open("save.p", "wb"))
