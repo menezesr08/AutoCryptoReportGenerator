@@ -8,6 +8,7 @@ import requests
 import pandas as pd
 
 import pickle
+import configparser
 
 from enums.ConfigOptions import ConfigOptions
 
@@ -25,12 +26,12 @@ The API url takes in a some parameters:
 
 class CryptoReport:
     def __init__(self, options, chosen_date):
-        self.api_key = '738510752db4953d28dfc15ff4da8812af46d98dd961da115924cc5933ceb808'
+        self.api_key = self.get_api_key()
         self.list_of_currencies = options
         self.chosen_date = chosen_date
         self.limit, self.time_period, self.window_size = \
-        [option.value for option in ConfigOptions if str(option.name) is
-         chosen_date][0]
+            [option.value for option in ConfigOptions if str(option.name) is
+             chosen_date][0]
 
     # self.time_period = [time_period for time_period in TimePeriods if str(time_period.name) is chosen_date]
 
@@ -49,32 +50,8 @@ class CryptoReport:
         pickle.dump(list_crypto_data, open("save.p", "wb"))
         return list_crypto_data
 
-    # # Todo: getting data from api is slow. Difficult to find a fix. Keep researching. (Not important task atm)
-    # def get_data_from_api(self):
-    #     try:
-    #         response = requests.get(self.weeklyBTCPricesURL, timeout=1)
-    #     except Timeout:
-    #         print('The request timed out')
-    #     else:
-    #         return response.json()
-    #
-    # # Parse json data to get relevant information
-    # def parse_json_data(self):
-    #     bitcoin_data = self.get_data_from_api()
-    #     outer_level_data = bitcoin_data['Data']
-    #     inner_level_data = outer_level_data['Data']
-    #     return inner_level_data
-    #
-    # def get_crypto_data(self):
-    #     # returns a list of objects
-    #     json_data = self.parse_json_data()
-    #     btc_data_list = []
-    #     for item in json_data:
-    #         data = CryptoDataModel(item)
-    #         btc_data_list.append(data)
-    #
-    #     return btc_data_list
-    #
-    # def create_report(self):
-    #     report = ReportGenerator(self.get_crypto_data())
-    #     report.plot_volumefrom_volumeto_price()
+    @staticmethod
+    def get_api_key():
+        config = configparser.ConfigParser()
+        config.read('config.ini')
+        return config['API']['KEY']

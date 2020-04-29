@@ -2,12 +2,9 @@ import pandas as pd
 
 import Helper
 from itertools import repeat
-from Plots.BarPlot import BarPlot
 from matplotlib import pyplot as plt, dates, ticker
 import numpy as np
 
-from Plots.DoubleLinePlot import DoubleLinePlot
-from Plots.LinePlot import LinePlot
 from enums.ConfigOptions import ConfigOptions
 
 
