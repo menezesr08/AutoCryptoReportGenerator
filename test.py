@@ -9,7 +9,7 @@ from datetime import datetime
 from matplotlib.ticker import FuncFormatter
 
 import Helper
-from CryptoReport import CryptoReport
+from API import CryptoReport
 from Plots import LinePlot
 
 import matplotlib.pyplot as plt

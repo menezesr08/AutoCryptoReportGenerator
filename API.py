@@ -6,13 +6,9 @@
 # --------------------------------------------------------------------
 import requests
 import pandas as pd
-import json
 
-from CryptoDataModel import CryptoDataModel
 import pickle
-from requests.exceptions import Timeout
 
-from enums.Limits import Limits
 from enums.ConfigOptions import ConfigOptions
 
 '''

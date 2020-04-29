@@ -1,12 +1,5 @@
-from CryptoDataModel import CryptoDataModel
-from CryptoReport import CryptoReport
-from HistoricalDataPlots import HistoricalDataPlots
-import pickle
-import pandas as pd
-from Plots.BarPlot import BarPlot
-import Helper
-from Plots.DoubleLinePlot import DoubleLinePlot
-from Plots.LinePlot import LinePlot
+from API import CryptoReport
+from Plots.HistoricalDataPlots import HistoricalDataPlots
 
 
 #
