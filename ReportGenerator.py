@@ -1,5 +1,5 @@
 from API import CryptoReport
-from Plots.HistoricalDataPlots import HistoricalDataPlots
+from Features.HistoricalDataPlots import HistoricalDataPlots
 
 
 #
@@ -11,6 +11,7 @@ from Plots.HistoricalDataPlots import HistoricalDataPlots
 #
 #         dates = [Helper.format_date(date) for date in dates]
 #         return dates
+from Features.TradingSignals import TradingSignals
 
 
 class ReportGenerator:
@@ -18,8 +19,9 @@ class ReportGenerator:
         # 'options' has type 'Tuple[str, str...]' (a type of strings)
         self.options: list = [option for option in options]
         self.api: CryptoReport = CryptoReport(self.options, chosen_date)
+        TradingSignals(self.api.get_trading_signals()).plot_trading_signals()
         # data = pickle.load(open("save.p", "rb"))
-        HistoricalDataPlots(self.api.get_crypto_historical_data()).create_plots()
+        # HistoricalDataPlots(self.api.get_crypto_historical_data()).create_plots()
 
 
 report: ReportGenerator = ReportGenerator("BTC", chosen_date="month")

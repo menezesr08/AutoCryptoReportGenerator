@@ -10,7 +10,7 @@ from matplotlib.ticker import FuncFormatter
 
 import Helper
 from API import CryptoReport
-from Plots import LinePlot
+from Features import LinePlot
 
 import matplotlib.pyplot as plt
 

@@ -50,6 +50,16 @@ class CryptoReport:
         pickle.dump(list_crypto_data, open("save.p", "wb"))
         return list_crypto_data
 
+    def get_news_data(self):
+        url = 'https://min-api.cryptocompare.com/data/v2/news/?categories=BTC,ETH,XRP,Mining,Technology'
+        response = requests.get(url).json()
+
+    def get_trading_signals(self):
+        url = 'https://min-api.cryptocompare.com/data/tradingsignals/intotheblock/latest?fsym=BTC'
+        response = requests.get(url).json()
+        data = response['Data']
+        return data
+
     @staticmethod
     def get_api_key():
         config = configparser.ConfigParser()
