@@ -1,11 +1,7 @@
 import pandas as pd
 
 import Helper
-from itertools import repeat
-from matplotlib import pyplot as plt, dates, ticker
-import numpy as np
-
-from enums.ConfigOptions import ConfigOptions
+from matplotlib import pyplot as plt
 
 
 class HistoricalDataPlots:
