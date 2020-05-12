@@ -53,6 +53,8 @@ class CryptoReport:
     def get_news_data(self):
         url = 'https://min-api.cryptocompare.com/data/v2/news/?categories=BTC,ETH,XRP,Mining,Technology'
         response = requests.get(url).json()
+        data = response['Data'][:5]
+        return data
 
     def get_trading_signals(self):
         url = 'https://min-api.cryptocompare.com/data/tradingsignals/intotheblock/latest?fsym=BTC'
