@@ -1,65 +1,59 @@
-import pickle
-
-import pandas as pd
-
-import matplotlib.dates as mdates
-
-from datetime import datetime
-
-from fpdf import FPDF, HTMLMixin
-from matplotlib.ticker import FuncFormatter
-
+# import pickle
+# import matplotlib as plt
+# import pandas as pd
+#
 import Helper
-from API import CryptoReport
-
+#
+import pickle
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+import numpy as np
+import pandas as pd
+import itertools
 
-from ReportGenerator import ReportGenerator
-from enums.Limits import Limits
+infile = open('save.p', 'rb')
+data = pickle.load(infile)
+data = data['data']
+data['time'] = data['time'].apply(Helper.convert_to_date)
+x = data['time']
+y = data['close']
 
-import fpdf
-import os
+data_max = data[['time', 'close']]
 
-report: ReportGenerator = ReportGenerator("BTC", chosen_date="month")
-data = report.news
-print(data)
-from jinja2 import Template
+df_max_prices = pd.DataFrame(
+    data.groupby(data_max['time'].dt.week, as_index=False).agg({'close': ['max', 'idxmax']}))
 
-from jinja2 import Environment, FileSystemLoader
+indexes = df_max_prices.iloc[:, df_max_prices.columns.get_level_values(1) == 'idxmax'].values
+flattened_list  = list(itertools.chain(*indexes))
+print(data.iloc[flattened_list])
+# print indexes. You get a list of list of values. Combine into one list and then use these indexes to subset
+# dataframe data
+
+# df_max_prices['id'] = data.groupby(data['time'].dt.week).close.idxmax()
 
 
-# news = report.news
-# class MyFPDF(FPDF, HTMLMixin):
-#     pass
+# max_close = df_max_prices['close'].values
 #
+# closed_value = data.loc[data['close'].isin(max_close)]
+# print(data.index)
 #
-# pdf = MyFPDF()
-# pdf.add_page()
-# pdf.set_font('Arial', 'B', 16)
+# df_min_prices = pd.DataFrame(
+#     data.groupby(data['time'].dt.week).close.min())
 #
-# root = os.path.dirname(os.path.abspath(__file__))
-# templates_dir = os.path.join(root, 'templates')
-# env = Environment(loader=FileSystemLoader(templates_dir))
-# template = env.get_template('grid.html')
+# min_prices = df_min_prices['close'].values
+# min_prices = data.loc[data['close'].isin(min_prices)]
 #
-# pdf.write_html(template.render())
-# pdf.output('tuto1.pdf', 'F')
+# fig = plt.figure()
+# ax = fig.add_subplot(111)
+#
+# ax.xaxis.set_minor_locator(mdates.DayLocator(interval=1))
+# ax.xaxis.set_major_locator(mdates.DayLocator(interval=5))
+# ax.xaxis.set_major_formatter(mdates.DateFormatter('%a %d %b'))
+# ax.plot(x, y)
+# ax.scatter(closed_value['time'], closed_value['close'], marker="^", color='blue')
+# ax.scatter(min_prices['time'], min_prices['close'], marker="^", color='red')
+# fig.autofmt_xdate()
+# ax.grid(True)
+# #
+# plt.show()
 
-document = fpdf.FPDF()
-
-document.set_font('Times', 'B', 20)
-document.set_text_color(19, 83, 173)
-document.add_page()
-document.cell(0, 5, 'News')
-
-for article in data:
-    document.set_font('Times', '', 16)
-    document.multi_cell(0, 5, article['title'])
-    document.set_font('Times', '', 14)
-    document.multi_cell(0, 5, article['body'])
-    document.set_font('Times', '', 12)
-    document.multi_cell(0, 5, article['source'])
-    document.ln()
-    document.ln()
-
-document.output('report.pdf')
