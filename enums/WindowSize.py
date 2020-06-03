@@ -2,7 +2,6 @@ from enum import Enum
 
 
 class WindowSize(Enum):
-    WEEK = 3
     MONTH = 5
     THREE_MONTHS = 7
     SIX_MONTHS = 14

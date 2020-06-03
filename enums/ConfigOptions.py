@@ -6,7 +6,7 @@ from enums.WindowSize import WindowSize
 
 
 class ConfigOptions(Enum):
-    week = (Limits.WEEK, TimePeriod.WEEK, WindowSize.WEEK)
+    week = (Limits.WEEK, TimePeriod.DAYS, None)
     month = (Limits.MONTH, TimePeriod.WEEK, WindowSize.MONTH)
     three_months = (Limits.THREE_MONTHS, TimePeriod.MONTH, WindowSize.THREE_MONTHS)
     six_months = (Limits.SIX_MONTHS, TimePeriod.MONTH, WindowSize.SIX_MONTHS)

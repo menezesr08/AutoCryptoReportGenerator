@@ -27,33 +27,29 @@ The API url takes in a some parameters:
 class CryptoReport:
     def __init__(self, options, chosen_date):
         self.api_key = self.get_api_key()
-        self.list_of_currencies = options
+        self.currency = options
         self.chosen_date = chosen_date
         self.limit, self.time_period, self.window_size = \
             [option.value for option in ConfigOptions if str(option.name) is
              chosen_date][0]
 
-    # self.time_period = [time_period for time_period in TimePeriods if str(time_period.name) is chosen_date]
+    def get_crypto_historical_data(self):
+        url = f'https://min-api.cryptocompare.com/data/v2/histoday?fsym={self.currency}&tsym=USD&limit={self.limit.value}&' \
+              f'api_key={self.api_key}'
+        response = requests.get(url).json()
+        outer_level = response['Data']
+        df = pd.DataFrame(outer_level['Data'])
+        df.set_index('time')
+        model = {'title': self.currency, 'data': df, 'time_period': self.time_period, 'window': self.window_size}
 
-    def get_crypto_historical_data(self) -> list:
-        list_crypto_data = []
-        for currency in self.list_of_currencies:
-            url = f'https://min-api.cryptocompare.com/data/v2/histoday?fsym={currency}&tsym=USD&limit={self.limit.value}&' \
-                  f'api_key={self.api_key}'
-            response = requests.get(url).json()
-            outer_level = response['Data']
-            df = pd.DataFrame(outer_level['Data'])
-            df.set_index('time')
-            model = {'title': currency, 'data': df, 'time_period': self.time_period, 'window': self.window_size}
-            list_crypto_data.append(model)
-
-        pickle.dump(list_crypto_data, open("save.p", "wb"))
-        return list_crypto_data
+        pickle.dump(model, open("../save.p", "wb"))
+        return model
 
     def get_news_data(self):
         url = 'https://min-api.cryptocompare.com/data/v2/news/?categories=BTC,ETH,XRP,Mining,Technology'
         response = requests.get(url).json()
         data = response['Data'][:5]
+        pickle.dump(data, open("../save.p", "wb"))
         return data
 
     def get_trading_signals(self):
