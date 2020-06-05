@@ -3,7 +3,9 @@ import pandas as pd
 import Helper
 from matplotlib import pyplot as plt
 
+from Features.Plots.MonthlyPlot import MonthlyPlot
 from Features.Plots.WeeklyPlot import WeeklyPlot
+from Features.Plots.YearlyPlot import YearlyPlot
 
 
 class HistoricalDataPlots:
@@ -15,8 +17,12 @@ class HistoricalDataPlots:
 
     # figure out how to plot open and close prices
     def plot_close_prices(self):
-        plot = WeeklyPlot(self.data, self.calculate_simple_moving_average, self.calculate_exponential_moving_average)
+        # plot = WeeklyPlot(self.data, self.calculate_simple_moving_average, self.calculate_exponential_moving_average)
+        # plot.create_plot()
+        plot = MonthlyPlot(self.data, self.calculate_simple_moving_average, self.calculate_exponential_moving_average)
         plot.create_plot()
+        # plot = YearlyPlot(self.data, self.calculate_simple_moving_average, self.calculate_exponential_moving_average)
+        # plot.create_plot()
 
         # fig, ax = plt.subplots(constrained_layout=True)
         # fig.set_size_inches(7, 5)

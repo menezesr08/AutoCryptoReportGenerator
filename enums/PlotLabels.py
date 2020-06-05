@@ -2,7 +2,14 @@ from enum import Enum
 
 
 class PlotLabels(Enum):
-    monthly_plot_title = "Bitcoin prices for the last 30 days"
-    monthly_plot_x = "Weekly dates for the last 30 days"
+    x_label = "Date"
+    y_label = "{} price ($)"
 
-    y_title = "Bitcoin price ($)"
+    title = "{0} prices for the last {1}"
+
+    week_scatter_point = "x"
+    month_scatter_point = "."
+    year_scatter_point = "*"
+
+
+
