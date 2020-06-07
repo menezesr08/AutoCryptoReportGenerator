@@ -28,4 +28,4 @@ class ReportGenerator:
         self.document.output('test.pdf')
 
 
-report: ReportGenerator = ReportGenerator("BTC", chosen_date="year")
+report: ReportGenerator = ReportGenerator("BTC", chosen_date="five_years")

@@ -10,6 +10,22 @@ class PlotLabels(Enum):
     week_scatter_point = "x"
     month_scatter_point = "."
     year_scatter_point = "*"
+    scatter_color_max = "black"
+    scatter_color_min = "red"
+    scatter_label_max = "Max price for each {}"
+    scatter_label_min = "Max price for each {}"
 
+    crypto_color = "orange"
+    crypto_linewidth = 4
+    crypto_alpha = 0.3
+    crypto_label = "Bitcoin price"
 
+    sma_color = "red"
+    sma_linewidth = 1
+    sma_alpha = 0.5
+    sma_label = "Simple moving average"
 
+    ema_color = "blue"
+    ema_linewidth = 1
+    ema_alpha = 0.5
+    ema_label = "Simple moving average"

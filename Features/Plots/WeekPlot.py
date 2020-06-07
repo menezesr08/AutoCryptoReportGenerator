@@ -10,10 +10,10 @@ from Features.Plots.BasePlot import BasePlot
 from enums.PlotLabels import PlotLabels
 
 
-class WeeklyPlot(BasePlot):
+class WeekPlot(BasePlot):
     def __init__(self, crypto_data_dict, simple_moving_average, exponential_moving_average):
         super().__init__(crypto_data_dict)
-
+        self.title = "week"
         self.sma = simple_moving_average
         self.ema = exponential_moving_average
 
@@ -26,18 +26,39 @@ class WeeklyPlot(BasePlot):
         self.ax.xaxis.set_major_formatter(mdates.DateFormatter('%a %d %b'))
 
     def plot_lines(self):
-        self.ax.plot(self.formatted_data['time'], self.formatted_data['close'], marker='', color='orange', linewidth=4,
-                     alpha=0.3)
-        self.ax.plot(self.formatted_data['time'], self.simple_moving_average, color='red', linewidth=1, alpha=0.5,
-                     label="Simple moving average")
-        self.ax.plot(self.formatted_data['time'], self.exponential_moving_average, color='blue', linewidth=1, alpha=0.5,
-                     label="Exponential moving average")
-        self.ax.scatter(self.weekly_max_prices['time'], self.weekly_max_prices['close'], marker=
-                        PlotLabels.week_scatter_point.value, color='black',
-                        label="Max price for each week")
-        self.ax.scatter(self.weekly_min_prices['time'], self.weekly_min_prices['close'], marker=
-                        PlotLabels.week_scatter_point.value, color='red',
-                        label="Min price for each week")
+        self.ax.plot(self.formatted_data['time'],
+                     self.formatted_data['close'], color=PlotLabels.crypto_color.value,
+                     linewidth=PlotLabels.crypto_linewidth.value,
+                     alpha=PlotLabels.crypto_alpha.value,
+                     label=PlotLabels.crypto_label.value)
+
+        self.ax.plot(self.formatted_data['time'],
+                     self.simple_moving_average,
+                     color=PlotLabels.sma_color.value,
+                     linewidth=PlotLabels.sma_linewidth.value,
+                     alpha=PlotLabels.sma_alpha.value,
+                     label=PlotLabels.sma_label.value)
+
+        self.ax.plot(self.formatted_data['time'],
+                     self.exponential_moving_average,
+                     color=PlotLabels.ema_color.value,
+                     linewidth=PlotLabels.ema_linewidth.value,
+                     alpha=PlotLabels.ema_alpha.value,
+                     label=PlotLabels.ema_label.value)
+
+        self.ax.scatter(self.weekly_max_prices['time'],
+                        self.weekly_max_prices['close'],
+                        marker=PlotLabels.week_scatter_point.value,
+                        color=PlotLabels.scatter_color_max.value,
+                        label=PlotLabels.scatter_label_max.value.format(self.title))
+
+        self.ax.scatter(self.weekly_min_prices['time'],
+                        self.weekly_min_prices['close'],
+                        marker=PlotLabels.week_scatter_point.value,
+                        color='red',
+                        label=PlotLabels.scatter_label_min.value.format(self.title))
+
+        self.fig.autofmt_xdate()
 
     def calculate_statistics(self, formatted_data):
         weekly_min_prices = self.min_close_per_week(formatted_data[['time', 'close']])
