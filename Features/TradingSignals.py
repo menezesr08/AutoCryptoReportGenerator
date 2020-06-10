@@ -10,12 +10,12 @@ class TradingSignals:
     def __init__(self, data):
         self.data = data
 
-    def plot_trading_signals(self):
+    def create_plot(self):
         for key in self.data.keys():
             if key in self.categories.keys():
 
-                address_in_profit = self.data[key]
-                scores = [address_in_profit['score'], 1 - address_in_profit['score']]
+                trading_signal = self.data[key]
+                scores = [trading_signal['score'], 1 - trading_signal['score']]
                 labels = ['bullish', 'bearish']
                 colors = ['lightskyblue', 'lightcoral']
                 explode = (0.1, 0)
@@ -25,4 +25,5 @@ class TradingSignals:
                 plt.title(self.categories[key])
 
                 plt.axis('equal')
-                plt.show()
+                plt.savefig(f'images/{key}_fig.png')
+                plt.close()

@@ -46,7 +46,7 @@ class CryptoReport:
         return model
 
     def get_news_data(self):
-        url = 'https://min-api.cryptocompare.com/data/v2/news/?categories=BTC,ETH,XRP,Mining,Technology'
+        url = f'https://min-api.cryptocompare.com/data/v2/news/?categories={self.currency},Mining,Technology'
         response = requests.get(url).json()
         data = response['Data'][:5]
         pickle.dump(data, open("../save.p", "wb"))

@@ -1,59 +1,87 @@
-# import pickle
-# import matplotlib as plt
-# import pandas as pd
-#
-import Helper
-#
 import pickle
-import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
-import numpy as np
+
 import pandas as pd
-import itertools
 
-infile = open('save.p', 'rb')
-data = pickle.load(infile)
-data = data['data']
-data['time'] = data['time'].apply(Helper.convert_to_date)
-x = data['time']
-y = data['close']
+import matplotlib.dates as mdates
 
-data_max = data[['time', 'close']]
+from datetime import datetime
 
-df_max_prices = pd.DataFrame(
-    data.groupby(data_max['time'].dt.week, as_index=False).agg({'close': ['max', 'idxmax']}))
+from fpdf import FPDF, HTMLMixin
+from matplotlib.ticker import FuncFormatter
 
-indexes = df_max_prices.iloc[:, df_max_prices.columns.get_level_values(1) == 'idxmax'].values
-flattened_list  = list(itertools.chain(*indexes))
-print(data.iloc[flattened_list])
-# print indexes. You get a list of list of values. Combine into one list and then use these indexes to subset
-# dataframe data
-
-# df_max_prices['id'] = data.groupby(data['time'].dt.week).close.idxmax()
+import Helper
 
 
-# max_close = df_max_prices['close'].values
+
+import matplotlib.pyplot as plt
+
+
+from enums.Limits import Limits
+
+import fpdf
+import os
+
+from main.ReportGenerator import ReportGenerator
+
+report: ReportGenerator = ReportGenerator("BTC", chosen_date="month")
+data = report.news
+from jinja2 import Template
+
+from jinja2 import Environment, FileSystemLoader
+
+fpdf.set_global("SYSTEM_TTFONTS", 'C:\\Users\\menez\\PycharmProjects\\Stock_Notifier\\fonts')
+
+# news = report.news
+# class MyFPDF(FPDF, HTMLMixin):
+#     pass
 #
-# closed_value = data.loc[data['close'].isin(max_close)]
-# print(data.index)
 #
-# df_min_prices = pd.DataFrame(
-#     data.groupby(data['time'].dt.week).close.min())
+# pdf = MyFPDF()
+# pdf.add_page()
+# pdf.set_font('Arial', 'B', 16)
 #
-# min_prices = df_min_prices['close'].values
-# min_prices = data.loc[data['close'].isin(min_prices)]
+# root = os.path.dirname(os.path.abspath(__file__))
+# templates_dir = os.path.join(root, 'templates')
+# env = Environment(loader=FileSystemLoader(templates_dir))
+# template = env.get_template('grid.html')
 #
-# fig = plt.figure()
-# ax = fig.add_subplot(111)
-#
-# ax.xaxis.set_minor_locator(mdates.DayLocator(interval=1))
-# ax.xaxis.set_major_locator(mdates.DayLocator(interval=5))
-# ax.xaxis.set_major_formatter(mdates.DateFormatter('%a %d %b'))
-# ax.plot(x, y)
-# ax.scatter(closed_value['time'], closed_value['close'], marker="^", color='blue')
-# ax.scatter(min_prices['time'], min_prices['close'], marker="^", color='red')
-# fig.autofmt_xdate()
-# ax.grid(True)
-# #
-# plt.show()
+# pdf.write_html(template.render())
+# pdf.output('tuto1.pdf', 'F')
 
+document = fpdf.FPDF()
+document.add_font("NotoSans", style="B", fname="NotoSans-Bold.ttf", uni=True)
+document.add_font("NotoSans", style="I", fname="NotoSans-Italic.ttf", uni=True)
+document.add_font("NotoSans", style="BI", fname="NotoSans-BoldItalic.ttf", uni=True)
+document.add_font("NotoSans", style="M", fname="NotoSans-Medium.ttf", uni=True)
+document.add_font("NotoSans", style="TI", fname="NotoSans-ThinItalic.ttf", uni=True)
+document.add_font("NotoSans", style="CI", fname="NotoSans-ExtraCondensedItalic.ttf", uni=True)
+document.add_font("NotoSans", style="LI", fname="NotoSans-LightItalic.ttf", uni=True)
+
+
+document.set_font('NotoSans', 'B', 20)
+document.set_text_color(57, 62, 65)
+document.add_page()
+document.multi_cell(0, 5, 'News', align='C')
+document.ln()
+document.ln()
+
+for article in data:
+    document.set_text_color(35, 9, 3)
+    document.set_font('NotoSans', 'B', 16)
+    document.multi_cell(0, 7, article['title'])
+    document.ln()
+    document.set_text_color(101, 98, 86)
+    document.set_font('NotoSans', 'M', 14)
+    document.multi_cell(0, 5, article['body'])
+    document.ln()
+    document.set_text_color(158, 188, 159)
+    document.set_font('NotoSans', 'LI', 12)
+    document.multi_cell(0, 5, 'Source: ' + article['source'])
+    document.ln()
+    document.set_text_color(211, 184, 140)
+    document.set_font('NotoSans', 'CI', 14)
+    document.multi_cell(0, 5, article['url'])
+    document.ln()
+    document.ln()
+
+document.output('report.pdf')

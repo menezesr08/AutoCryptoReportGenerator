@@ -23,14 +23,19 @@ class HistoricalDataPlots:
     def create_plot(self):
         time_period = self.data['time_period']
         plot_type = self.execute_plot(time_period)
-        plot = plot_type(self.data, self.calculate_simple_moving_average, self.calculate_exponential_moving_average)
+
+        if plot_type is BasePlot:
+            plot = plot_type(self.data)
+        else:
+            plot = plot_type(self.data, self.calculate_simple_moving_average, self.simple_moving_average)
+
         plot.create_plot()
 
     def execute_plot(self, time_period):
         return self.choices.get(time_period.value)
 
     @staticmethod
-    def calculate_exponential_moving_average(data, window_size):
+    def simple_moving_average(data, window_size):
         short_rolling = data.ewm(span=window_size, adjust=False).mean()
         return short_rolling
 
