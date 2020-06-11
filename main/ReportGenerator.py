@@ -15,32 +15,20 @@ class ReportGenerator:
     fpdf.set_global("SYSTEM_TTFONTS", 'C:\\Users\\menez\\PycharmProjects\\Stock_Notifier\\fonts')
 
     def __init__(self, currency, chosen_date):
-        # self.empty_folder('C:\\Users\\menez\\PycharmProjects\\Stock_Notifier\\main\\images')
+        self.empty_folder('C:\\Users\\menez\\PycharmProjects\\Stock_Notifier\\main\\images')
         # self.empty_folder('C:\\Users\\menez\\PycharmProjects\\Stock_Notifier\\main\\pdfs')
         self.api: CryptoReport = CryptoReport(currency, chosen_date)
-        # data = self.api.get_crypto_historical_data()
-        # self.plot = HistoricalDataPlots(data).create_plot()
+        historical_data = self.api.get_crypto_historical_data()
+        HistoricalDataPlots(historical_data).create_plot()
+        trading_data = self.api.get_trading_signals()
+        TradingSignals(trading_data).create_plots()
         pdf = PDFBuilder()
-        pdf.create_historical_data_page()
+        title = historical_data['title']
+        time_period = historical_data['time_period'].value
+        pdf.create_historical_data_page(title, time_period)
         pdf.create_trading_signals_page()
         pdf.create_news_page(self.api.get_news_data())
-        pdf.document.output('report.pdf')
-        # self.plot = TradingSignals(self.api.get_trading_signals()).create_plot()
-        # self.news = News(self.api.get_news_data()).create_news_page()
-
-        # self.document = fpdf.FPDF()
-        # self.create_pdf()
-
-    def create_pdf(self):
-        self.document.add_font("NotoSans", style="B", fname="NotoSans-Bold.ttf", uni=True)
-        self.document.add_font("NotoSans", style="I", fname="NotoSans-Italic.ttf", uni=True)
-        self.document.add_font("NotoSans", style="BI", fname="NotoSans-BoldItalic.ttf", uni=True)
-        self.document.add_font("NotoSans", style="M", fname="NotoSans-Medium.ttf", uni=True)
-
-        # add first plot
-        self.document.add_page(orientation="L")
-        self.document.image('images/plot - {0}.png'.format(Helper.todays_date()))
-        self.document.output('test.pdf')
+        pdf.document.output('pdfs/report.pdf')
 
     def empty_folder(self, folder_path):
         for file_object in os.listdir(folder_path):
@@ -51,4 +39,4 @@ class ReportGenerator:
                 shutil.rmtree(file_object_path)
 
 
-report: ReportGenerator = ReportGenerator("ETH", chosen_date="month")
+report: ReportGenerator = ReportGenerator("BTC", chosen_date="three_months")

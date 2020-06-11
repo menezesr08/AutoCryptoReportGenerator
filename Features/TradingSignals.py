@@ -2,15 +2,18 @@ import matplotlib.pyplot as plt
 
 
 class TradingSignals:
-    categories = {"inOutVar": "Net change of value in addresses",
-                  "addressesNetGrowth": "New addresses created",
-                  "largetxsVar": "Bitcoin transactions",
-                  "concentrationVar": "Number of address with more than 0.1% of circulating supply"}
+    categories = {"inOutVar": "This momentum signal calculates\nhow many addresses are in profit.\nThis is referred"
+                              "to as\n'In the money'.",
+                  "addressesNetGrowth": "This momentum signal calculates\nhow many addresses are\nbeing created than "
+                                        "emptied.",
+                  "largetxsVar": "This momentum signal records\nthe number of transactions.",
+                  "concentrationVar": "The concentration signal is\n based on the "
+                                      "number\nof address with more than\n0.1% of circulating supply"}
 
     def __init__(self, data):
         self.data = data
 
-    def create_plot(self):
+    def create_plots(self):
         for key in self.data.keys():
             if key in self.categories.keys():
 
@@ -22,7 +25,7 @@ class TradingSignals:
 
                 plt.pie(scores, labels=labels, explode=explode, colors=colors, autopct='%1.1f%%', shadow=True,
                         startangle=140)
-                plt.title(self.categories[key])
+                plt.title(key)
 
                 plt.axis('equal')
                 plt.savefig(f'images/{key}_fig.png')

@@ -19,7 +19,7 @@ class BasePlot:
 
     def create_plot(self):
         self.plot_lines()
-        self.apply_labels()
+        # self.apply_labels()
         self.apply_legend()
         plt.savefig('images/historical_fig.png', bbox_inches="tight")
         plt.close()
@@ -34,14 +34,13 @@ class BasePlot:
 
     def plot_lines(self):
         self.ax.plot(self.formatted_data['time'], self.formatted_data['close'], marker='', color='orange', linewidth=4,
-                     alpha=0.3, label="Bitcoin price")
+                     alpha=0.3, label=PlotLabels.crypto_label.value.format(self.title))
 
     def format_data(self, data):
         data['time'] = data['time'].apply(Helper.convert_to_date)
         return data
 
     def apply_labels(self):
-        self.ax.set_title(PlotLabels.title.value.format(self.title, self.time_period.value))
         self.ax.set_xlabel(PlotLabels.x_label.value)
         self.ax.set_ylabel(PlotLabels.y_label.value.format(self.title))
         self.ax.xaxis.labelpad = 40
@@ -49,6 +48,9 @@ class BasePlot:
 
     def apply_legend(self):
         box = self.ax.get_position()
+        legend_prop = {'weight': 'bold', 'family': 'Times New Roman'}
+
         self.ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
         # Put a legend to the right of the current axis
-        self.ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+        self.ax.legend(loc='center left', bbox_to_anchor=(1, 0.5),
+                       labelspacing=2, prop=legend_prop)

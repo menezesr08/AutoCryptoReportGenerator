@@ -22,21 +22,21 @@ class PDFBuilder:
         self.document.add_font("NotoSans", style="LI", fname="NotoSans-LightItalic.ttf", uni=True)
         self.document.add_font("NotoSans", style="TI", fname="NotoSans-ThinItalic.tff", uni=True)
 
-    def create_historical_data_page(self):
+    def create_historical_data_page(self, title, time_period):
         self.document.add_page('L')
-        self.add_main_title('BTC prices for the last 3 years')
+        self.add_main_title(f'{title} prices for the last {time_period}')
         self.add_key_terms()
 
-        self.add_section_title('Simple Moving Average', 14)
-        self.add_section_body('This is a calculation that averages prices over a period of time and plots '
-                              'that average as a line.', 12)
+        self.add_section_title('Simple Moving Average', 12)
+        self.add_section_body('This is a calculation that averages\nprices over a period of\ntime and plots '
+                              'that average\nas a line.', 10)
 
-        self.add_section_title('Exponential Moving Average', 14)
-        self.add_section_body('This is a type of weighted moving average and gives more importance to recent prices',
-                              12)
+        self.add_section_title('Exponential Moving Average', 12)
+        self.add_section_body('This is a type of\nweighted moving average and gives\nmore importance to recent prices',
+                              10)
 
         image = 'C:\\Users\\menez\\PycharmProjects\\Stock_Notifier\\main\\images\\historical_fig.png'
-        self.document.image(image, x=10, y=80, w=230, h=130)
+        self.document.image(image, x=85, y=40, w=205, h=110)
 
     def create_trading_signals_page(self):
         self.document.add_page('L')
@@ -46,6 +46,13 @@ class PDFBuilder:
         for title, text in categories.items():
             self.add_section_title(title, 14)
             self.add_section_body(text, 12)
+
+        image_url = 'C:\\Users\\menez\\PycharmProjects\\Stock_Notifier\\main\\images\\{}_fig.png'
+        image_1, image_2, image_3, image_4 = [image_url.format(key) for key in categories.keys()]
+        self.document.image(image_1, x=90, y=30, w=110, h=80)
+        self.document.image(image_2, x=200, y=30, w=100, h=80)
+        self.document.image(image_3, x=90, y=120, w=110, h=80)
+        self.document.image(image_4, x=200, y=120, w=110, h=80)
 
     def create_news_page(self, data):
         self.document.add_page('P')
@@ -60,14 +67,18 @@ class PDFBuilder:
             self.document.ln()
 
     def add_main_title(self, title):
-        self.document.set_font('NotoSans', 'B', 16)
+        self.document.set_text_color(35, 9, 3)
+        self.document.set_font('NotoSans', 'B', 20)
         self.document.multi_cell(0, 5, title, align='C')
         self.document.ln()
         self.document.ln()
 
     def add_key_terms(self):
-        self.document.set_font('NotoSans', 'M', 14)
+        self.document.set_xy(self.document.get_x(), self.document.get_y() + 10)
+        self.document.set_text_color(199, 102, 102)
+        self.document.set_font('NotoSans', 'BU', 16)
         self.document.multi_cell(0, 5, 'Key Terms')
+        self.document.ln()
         self.document.ln()
 
     def add_section_title(self, title, font_size):

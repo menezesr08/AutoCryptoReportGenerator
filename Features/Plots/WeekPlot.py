@@ -13,10 +13,10 @@ from enums.PlotLabels import PlotLabels
 class WeekPlot(BasePlot):
     def __init__(self, crypto_data_dict, simple_moving_average, exponential_moving_average):
         super().__init__(crypto_data_dict)
-        self.title = "week"
+        self.plot_period = "week"
         self.sma = simple_moving_average
         self.ema = exponential_moving_average
-
+        self.title = crypto_data_dict['title']
         self.window = crypto_data_dict['window']
 
         self.weekly_min_prices, self.weekly_max_prices, self.simple_moving_average, self.exponential_moving_average = \
@@ -30,7 +30,7 @@ class WeekPlot(BasePlot):
                      self.formatted_data['close'], color=PlotLabels.crypto_color.value,
                      linewidth=PlotLabels.crypto_linewidth.value,
                      alpha=PlotLabels.crypto_alpha.value,
-                     label=PlotLabels.crypto_label.value)
+                     label=PlotLabels.crypto_label.value.format(self.title))
 
         self.ax.plot(self.formatted_data['time'],
                      self.simple_moving_average,
@@ -50,13 +50,13 @@ class WeekPlot(BasePlot):
                         self.weekly_max_prices['close'],
                         marker=PlotLabels.week_scatter_point.value,
                         color=PlotLabels.scatter_color_max.value,
-                        label=PlotLabels.scatter_label_max.value.format(self.title))
+                        label=PlotLabels.scatter_label_max.value.format(self.title, self.plot_period))
 
         self.ax.scatter(self.weekly_min_prices['time'],
                         self.weekly_min_prices['close'],
                         marker=PlotLabels.week_scatter_point.value,
                         color='red',
-                        label=PlotLabels.scatter_label_min.value.format(self.title))
+                        label=PlotLabels.scatter_label_min.value.format(self.title, self.plot_period))
 
         self.fig.autofmt_xdate()
 
