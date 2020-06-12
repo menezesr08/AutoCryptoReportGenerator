@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 class TradingSignals:
     categories = {"inOutVar": "This momentum signal calculates\nhow many addresses are in profit.\nThis is referred"
-                              "to as\n'In the money'.",
+                              " to as\n'In the money'.",
                   "addressesNetGrowth": "This momentum signal calculates\nhow many addresses are\nbeing created than "
                                         "emptied.",
                   "largetxsVar": "This momentum signal records\nthe number of transactions.",
@@ -25,7 +25,7 @@ class TradingSignals:
 
                 plt.pie(scores, labels=labels, explode=explode, colors=colors, autopct='%1.1f%%', shadow=True,
                         startangle=140)
-                plt.title(key)
+                plt.title(key, y=1.1, fontweight='bold', fontsize=12)
 
                 plt.axis('equal')
                 plt.savefig(f'images/{key}_fig.png')

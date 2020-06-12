@@ -53,7 +53,7 @@ class CryptoReport:
         return data
 
     def get_trading_signals(self):
-        url = 'https://min-api.cryptocompare.com/data/tradingsignals/intotheblock/latest?fsym=BTC'
+        url = f'https://min-api.cryptocompare.com/data/tradingsignals/intotheblock/latest?fsym={self.currency}'
         response = requests.get(url).json()
         data = response['Data']
         return data

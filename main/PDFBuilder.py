@@ -49,10 +49,10 @@ class PDFBuilder:
 
         image_url = 'C:\\Users\\menez\\PycharmProjects\\Stock_Notifier\\main\\images\\{}_fig.png'
         image_1, image_2, image_3, image_4 = [image_url.format(key) for key in categories.keys()]
-        self.document.image(image_1, x=90, y=30, w=110, h=80)
-        self.document.image(image_2, x=200, y=30, w=100, h=80)
-        self.document.image(image_3, x=90, y=120, w=110, h=80)
-        self.document.image(image_4, x=200, y=120, w=110, h=80)
+        self.document.image(image_1, x=90, y=35, w=110, h=80)
+        self.document.image(image_2, x=200, y=35, w=100, h=80)
+        self.document.image(image_3, x=90, y=125, w=110, h=80)
+        self.document.image(image_4, x=200, y=125, w=110, h=80)
 
     def create_news_page(self, data):
         self.document.add_page('P')
