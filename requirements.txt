@@ -1,3 +1,6 @@
+celery
+yagmail
+flask
 reportlab
 jinja2
 pylab

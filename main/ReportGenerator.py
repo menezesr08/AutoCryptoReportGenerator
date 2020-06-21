@@ -35,7 +35,7 @@ class ReportGenerator:
         self.historical_data_pdf(historical_data)
         self.trading_data_pdf(trading_data)
         self.news_data_pdf(news_data)
-        self.pdf.document.output('pdfs/report.pdf')
+        self.pdf.document.output('main/pdfs/report.pdf')
         EmailSender(self.receiver_email).send_email()
 
     def historical_data_pdf(self, historical_data):
@@ -51,14 +51,12 @@ class ReportGenerator:
     def news_data_pdf(self, news_data):
         self.pdf.create_news_page(news_data)
 
-    # def empty_folder(self, folder_path):
-    #     for file_object in os.listdir(folder_path):
-    #         file_object_path = os.path.join(folder_path, file_object)
-    #         if os.path.isfile(file_object_path) or os.path.islink(file_object_path):
-    #             os.unlink(file_object_path)
-    #         else:
-    #             shutil.rmtree(file_object_path)
+    def empty_folder(self, folder_path):
+        for file_object in os.listdir(folder_path):
+            file_object_path = os.path.join(folder_path, file_object)
+            if os.path.isfile(file_object_path) or os.path.islink(file_object_path):
+                os.unlink(file_object_path)
+            else:
+                shutil.rmtree(file_object_path)
 
 
-report: ReportGenerator = ReportGenerator("ETH", "three_months", "menezesr08@gmail.com")
-report.generate_report()

@@ -1,4 +1,7 @@
 import matplotlib.pyplot as plt
+import matplotlib
+
+matplotlib.use('agg')
 
 
 class TradingSignals:
@@ -16,7 +19,6 @@ class TradingSignals:
     def create_plots(self):
         for key in self.data.keys():
             if key in self.categories.keys():
-
                 trading_signal = self.data[key]
                 scores = [trading_signal['score'], 1 - trading_signal['score']]
                 labels = ['bullish', 'bearish']
@@ -28,5 +30,5 @@ class TradingSignals:
                 plt.title(key, y=1.1, fontweight='bold', fontsize=12)
 
                 plt.axis('equal')
-                plt.savefig(f'images/{key}_fig.png')
+                plt.savefig(f'main/images/{key}_fig.png')
                 plt.close()

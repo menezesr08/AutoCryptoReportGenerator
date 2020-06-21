@@ -35,7 +35,7 @@ class EmailSender:
         self.message.attach(MIMEText(text, "plain"))
 
     def attach_pdf(self):
-        filename = "pdfs/report.pdf"
+        filename = "main/pdfs/report.pdf"
 
         with open(filename, "rb") as attachment:
             part = MIMEBase("application", "octet-stream")
@@ -51,7 +51,7 @@ class EmailSender:
     @staticmethod
     def get_email_password():
         config = configparser.ConfigParser()
-        config.read('config.ini')
+        config.read('main/config.ini')
         return config['EMAIL']['PASSWORD']
 
 

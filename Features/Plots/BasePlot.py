@@ -1,8 +1,9 @@
 import matplotlib.pyplot as plt
-
+import matplotlib
 import Helper
 from enums.PlotLabels import PlotLabels
 import matplotlib.dates as mdates
+matplotlib.use('agg')
 
 
 class BasePlot:
@@ -21,7 +22,7 @@ class BasePlot:
         self.plot_lines()
         # self.apply_labels()
         self.apply_legend()
-        plt.savefig('images/historical_fig.png', bbox_inches="tight")
+        plt.savefig('main/images/historical_fig.png', bbox_inches="tight")
         plt.close()
 
     def initialise_plot(self):
