@@ -1,10 +1,10 @@
 import yagmail
 
-receiver = "menezesr08@gmail.com"
+receiver = "your@gmail.com"
 body = "Hello there from Yagmail"
-filename = "main/pdfs/report.pdf"
+filename = "document.pdf"
 
-yag = yagmail.SMTP("cryptoreportgen5@gmail.com", password="Lightus12345")
+yag = yagmail.SMTP("my@gmail.com")
 yag.send(
     to=receiver,
     subject="Yagmail test with attachment",

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Crypto Report</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <style>
+      html, body {
+      height: 100%;
+      }
+      body, h1, h3, input {
+      padding: 0;
+      margin: 0;
+      outline: none;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 16px;
+      color: #666;
+      }
+      h1, h3 {
+      padding: 12px 0;
+      font-weight: 400;
+      font-family: 'Montserrat', sans-serif;
+      }
+      h1 {
+      font-size: 28px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: bold;
+      }
+      .main-block, .info {
+      display: flex;
+      flex-direction: column;
+      }
+      .main-block {
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      min-height: 100%;
+      background: url("/uploads/media/default/0001/01/49bff73f282c2c21f3341f1fe457fe35337b1792.jpeg") no-repeat center;
+      background-size: cover;
+      }
+      form {
+      width: 50%;
+      padding: 20px;
+      border-radius: 5px;
+      border: solid 1px #ccc;
+      box-shadow: 1px 2px 5px rgba(0,0,0,.31);
+      background: #ebebeb;
+      }
+      .info-item {
+      width: 100%;
+      }
+      input {
+      width: calc(100% - 57px);
+      height: 36px;
+      padding-left: 10px;
+      margin: 0 0 12px -5px;
+      border-radius: 0 5px 5px 0;
+      border: solid 1px #cbc9c9;
+      box-shadow: 1px 2px 5px rgba(0,0,0,.09);
+      background: #fff;
+      }
+      .icon {
+      padding: 9px 15px;
+      margin-top: -1px;
+      border-radius: 5px 0 0 5px;
+      border: solid 0px #cbc9c9;
+      background: #666;
+      color: #fff;
+      }
+      input[type=radio] {
+      display: none;
+      }
+      label.radio {
+      position: relative;
+      display: inline-block;
+      text-indent: 32px;
+      cursor: pointer;
+      }
+      label.radio:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 0.5px solid #8ebf42;
+      background: #fff;
+      }
+      label.radio:after {
+      content: "";
+      position: absolute;
+      width: 8px;
+      height: 4px;
+      top: 5px;
+      left: 4px;
+      border-bottom: 3px solid #8ebf42;
+      border-left: 3px solid #8ebf42;
+      transform: rotate(-45deg);
+      opacity: 0;
+      }
+      input[type=radio]:checked + label:after {
+      opacity: 1;
+      }
+      textarea {
+      width: 99%;
+      margin-bottom: 12px;
+      }
+      button {
+      width: 100%;
+      padding: 8px;
+      border-radius: 5px;
+      border: none;
+      background: #8ebf42;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      }
+      button:hover {
+      background: #82b534;
+      }
+      .options div {
+      display: inline-block;
+      margin: 10px 5px 40px 10px;
+      }
+      @media (min-width: 568px) {
+      .info {
+      flex-flow: row wrap;
+      justify-content: space-between;
+      }
+      .info-item {
+      width: 48%;
+      }
+      }
+      .intro_text {
+        margin-bottom: 10px;
+        font-size: 18px;
+        font-weight: bold;
+      }
+      .explanation_text {
+        margin-bottom: 30px;
+        color: brown;
+      }
+      ul {
+      margin-top: -10px;
+      color: brown;
+      }
+      .definition_text {
+        margin-bottom: 30px;
+        color: red;
+        margin-top: -10px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-block">
+      <h1>Crypto Report Generator</h1>
+      <p class="intro_text">We just need you to fill out a few details to get your report! </p>
+      <p class="explanation_text">
+          The report will display 3 types of data:
+      </p>
+          <ul>
+              <li>Historical Data Plot</li>
+              <li>Trading Signals Plot</li>
+              <li>News</li>
+          </ul>
+
+      <p class="explanation_text">
+          More information will be included in the report.
+      </p>
+      <p class="definition_text">
+          * Example: 3 months timespan will show all the data upto 3 months ago.
+      </p>
+      <form action="/" method="POST">
+        <div class="info">
+          <div class="info-item">
+            <label class="icon" for="name"><i class="fas fa-user"></i></label>
+            <input type="text" name="name" id="name" placeholder="Name" required/>
+          </div>
+          <div  class="info-item">
+            <label class="icon" for="email"><i class="fas fa-envelope"></i></label>
+            <input type="text" name="email" id="email" placeholder="Email" required/>
+          </div>
+        </div>
+        <div class="options">
+          <h3>Choose your cryptocurrency</h3>
+          <div>
+            <input type="radio" value="BTC" id="BTC" name="currency" checked/>
+            <label for="BTC" class="radio">Bitcoin (BTC)</label>
+          </div>
+          <div>
+            <input type="radio" value="ETH" id="ETH" name="currency" />
+            <label for="ETH" class="radio">Ethereum (ETH)</label>
+          </div>
+          <div>
+            <input type="radio" value="BCH" id="BCH" name="currency" />
+            <label for="BCH" class="radio">Bitcoin Cash (BCH)</label>
+          </div>
+          <div>
+            <input type="radio" value="LTC" id="LTC" name="currency" />
+            <label for="LTC" class="radio">Litecoin (LTC)</label>
+          </div>
+          <div>
+            <input type="radio" value="EOS" id="EOS" name="currency" />
+            <label for="EOS" class="radio">EOS (EOS)</label>
+          </div>
+        </div>
+        <div class="options">
+          <h3>Choose the timespan *</h3>
+          <div>
+            <input type="radio" value="week" id="week" name="period" checked/>
+            <label for="week" class="radio">7 days</label>
+          </div>
+          <div>
+            <input type="radio" value="month" id="month" name="period" />
+            <label for="month" class="radio">30 days</label>
+          </div>
+          <div>
+            <input type="radio" value="three_months" id="three_months" name="period" />
+            <label for="three_months" class="radio">3 months</label>
+          </div>
+          <div>
+            <input type="radio" value="six_months" id="six_months" name="period" />
+            <label for="six_months" class="radio">6 months</label>
+          </div>
+          <div>
+            <input type="radio" value="year" id="year" name="period" />
+            <label for="year" class="radio">1 year</label>
+          </div>
+          <div>
+            <input type="radio" value="three_years" id="three_years" name="period" />
+            <label for="three_years" class="radio">3 years</label>
+          </div>
+          <div>
+            <input type="radio" value="five_years" id="five_years" name="period" />
+            <label for="five_years" class="radio">5 years</label>
+          </div>
+        </div>
+         <button type="submit">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>
