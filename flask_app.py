@@ -1,16 +1,10 @@
 from flask import Flask, render_template, redirect, request, url_for
-from celery import Celery
-import RunReportScript
+import run_report_script
 from threading import Thread
+from flask import Flask
+from celery import Celery
 
 app = Flask(__name__)
-
-
-# app.config['CELERY_BROKER_URL'] = 'redis://localhost:6379/0'
-# app.config['CELERY_RESULT_BACKEND'] = 'redis://localhost:6379/0'
-#
-# celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
-# celery.conf.update(app.config)
 
 
 @app.route('/')
@@ -23,8 +17,7 @@ def get_options():
     currency = request.form.get('currency')
     time_period = request.form.get('period')
     email = request.form.get('email')
-    thr = Thread(target=my_background_task, args=[currency, time_period, email])
-    thr.start()
+    my_background_task(currency, time_period, email)
     return redirect(url_for('success'))
 
 
@@ -34,13 +27,7 @@ def success():
 
 
 def my_background_task(currency, chosen_date, receiver_email):
-    with app.app_context():
-        RunReportScript.run(currency, chosen_date, receiver_email)
-
-
-# @celery.task(name='run.my_background_task')
-# def my_background_task(currency, chosen_date, receiver_email):
-#     RunReportScript.run(currency, chosen_date, receiver_email)
+    run_report_script.run(currency, chosen_date, receiver_email)
 
 
 if __name__ == '__main__':

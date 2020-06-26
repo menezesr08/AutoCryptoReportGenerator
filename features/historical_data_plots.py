@@ -1,12 +1,7 @@
-import pandas as pd
-
-import Helper
-from matplotlib import pyplot as plt
-
-from Features.Plots.BasePlot import BasePlot
-from Features.Plots.MonthPlot import MonthPlot
-from Features.Plots.WeekPlot import WeekPlot
-from Features.Plots.YearPlot import YearPlot
+from features.plots.base_plot import BasePlot
+from features.plots.month_plot import MonthPlot
+from features.plots.week_plot import WeekPlot
+from features.plots.year_plot import YearPlot
 
 
 class HistoricalDataPlots:

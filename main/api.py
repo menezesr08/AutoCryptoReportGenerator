@@ -10,7 +10,7 @@ import pandas as pd
 import pickle
 import configparser
 
-from enums.ConfigOptions import ConfigOptions
+from enums.config_options import ConfigOptions
 
 '''
 The API url takes in a some parameters: 

@@ -1,8 +1,8 @@
 from enum import Enum
 
-from enums.Limits import Limits
-from enums.TimePeriod import TimePeriod
-from enums.WindowSize import WindowSize
+from enums.limits import Limits
+from enums.time_period import TimePeriod
+from enums.window_size import WindowSize
 
 
 class ConfigOptions(Enum):

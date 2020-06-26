@@ -3,7 +3,6 @@ yagmail
 flask
 reportlab
 jinja2
-pylab
 numpy
 pandas
 matplotlib

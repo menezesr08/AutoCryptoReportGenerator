@@ -1,13 +1,10 @@
 import itertools
 
 import matplotlib.dates as mdates
-import matplotlib.pyplot as plt
 import pandas as pd
-from dateutil.rrule import MO
 
-import Helper
-from Features.Plots.BasePlot import BasePlot
-from enums.PlotLabels import PlotLabels
+from features.plots.base_plot import BasePlot
+from enums.plot_labels import PlotLabels
 
 
 class YearPlot(BasePlot):
