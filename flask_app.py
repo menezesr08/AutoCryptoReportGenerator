@@ -1,8 +1,7 @@
 from flask import Flask, render_template, redirect, request, url_for
 import run_report_script
-from threading import Thread
 from flask import Flask
-from celery import Celery
+
 
 app = Flask(__name__)
 

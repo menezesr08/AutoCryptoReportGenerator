@@ -28,5 +28,5 @@ class TradingSignals:
                 plt.title(key, y=1.1, fontweight='bold', fontsize=12)
 
                 plt.axis('equal')
-                plt.savefig(f'images/{key}_fig.png')
+                plt.savefig(f'main/images/{key}_fig.png')
                 plt.close()
