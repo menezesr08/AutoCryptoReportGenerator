@@ -1,6 +1,3 @@
-celery
-yagmail
-flask
 reportlab
 jinja2
 numpy

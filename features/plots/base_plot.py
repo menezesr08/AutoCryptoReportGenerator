@@ -1,9 +1,8 @@
 import matplotlib.pyplot as plt
-import matplotlib
-from main import helper
-from enums.plot_labels import PlotLabels
+
+import Helper
+from enums.PlotLabels import PlotLabels
 import matplotlib.dates as mdates
-matplotlib.use('agg')
 
 
 class BasePlot:
@@ -22,7 +21,7 @@ class BasePlot:
         self.plot_lines()
         # self.apply_labels()
         self.apply_legend()
-        plt.savefig('main/images/historical_fig.png', bbox_inches="tight")
+        plt.savefig('images/historical_fig.png', bbox_inches="tight")
         plt.close()
 
     def initialise_plot(self):
@@ -38,7 +37,7 @@ class BasePlot:
                      alpha=0.3, label=PlotLabels.crypto_label.value.format(self.title))
 
     def format_data(self, data):
-        data['time'] = data['time'].apply(helper.convert_to_date)
+        data['time'] = data['time'].apply(Helper.convert_to_date)
         return data
 
     def apply_labels(self):

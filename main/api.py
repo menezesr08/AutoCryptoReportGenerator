@@ -30,7 +30,8 @@ class CryptoReport:
         self.currency = options
         self.chosen_date = chosen_date
         self.limit, self.time_period, self.window_size = \
-            [option.value for option in ConfigOptions if str(option.name) == chosen_date][0]
+            [option.value for option in ConfigOptions if str(option.name) is
+             chosen_date][0]
 
     def get_crypto_historical_data(self):
         url = f'https://min-api.cryptocompare.com/data/v2/histoday?fsym={self.currency}&tsym=USD&limit={self.limit.value}&' \
@@ -60,5 +61,5 @@ class CryptoReport:
     @staticmethod
     def get_api_key():
         config = configparser.ConfigParser()
-        config.read('main/config.ini')
+        config.read('config.ini')
         return config['API']['KEY']
