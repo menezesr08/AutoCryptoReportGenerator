@@ -4,8 +4,10 @@ from background_task import create_report_task
 from worker import conn
 from rq import Queue
 import os
+from talisman import Talisman
 
 app = Flask(__name__)
+Talisman(app)
 que = Queue(connection=conn)
 
 
