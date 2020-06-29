@@ -4,6 +4,8 @@
 .idea/
 .mypy_cache/
 __pycache__/
+.mypy_cache/3.7
+.idea
 *.py[cod]
 dist/
 build/
