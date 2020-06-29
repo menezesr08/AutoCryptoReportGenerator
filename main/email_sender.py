@@ -22,7 +22,7 @@ class EmailSender:
     def send_email(self):
         self.create_message()
         self.attach_pdf()
-        password = os.environ.get('SEND_MAIL_PASSWORD', None)
+        password = os.environ.get('SEND_MAIL_PASSWORD')
         with smtplib.SMTP_SSL("smtp.gmail.com", self.port, context=self.context) as server:
             server.login(self.sender_email, password)
             server.sendmail(self.sender_email, self.receiver_email, self.message.as_string())

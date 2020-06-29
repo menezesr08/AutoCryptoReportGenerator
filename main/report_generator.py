@@ -45,5 +45,6 @@ class ReportGenerator:
         EmailSender(self.receiver_email).send_email()
 
 
+#
 report = ReportGenerator("BTC", "year", "velatrix0@gmail.com")
 report.generate_report()
