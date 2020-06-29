@@ -1,3 +1,6 @@
+import os
+from main.utils import get_project_root
+
 import matplotlib.pyplot as plt
 
 
@@ -12,6 +15,7 @@ class TradingSignals:
 
     def __init__(self, data):
         self.data = data
+        self.root = str(get_project_root())
 
     def create_plots(self):
         for key in self.data.keys():
@@ -28,5 +32,5 @@ class TradingSignals:
                 plt.title(key, y=1.1, fontweight='bold', fontsize=12)
 
                 plt.axis('equal')
-                plt.savefig(f'main/images/{key}_fig.png')
+                plt.savefig(os.path.join(self.root, f'images/{key}_fig.png'))
                 plt.close()

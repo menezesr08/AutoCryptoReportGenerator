@@ -1,9 +1,3 @@
-# TODO: Decide where to plot your results
-# SubTodos for this task
-# --------------------------------------------------------------------
-# TODO: send email of results
-# SubTodos for this task
-# --------------------------------------------------------------------
 import requests
 import pandas as pd
 
@@ -11,6 +5,9 @@ import pickle
 import configparser
 
 from enums.config_options import ConfigOptions
+
+from main.utils import get_project_root
+import os
 
 '''
 The API url takes in a some parameters: 
@@ -26,7 +23,7 @@ The API url takes in a some parameters:
 
 class CryptoReport:
     def __init__(self, options, chosen_date):
-        self.api_key = self.get_api_key()
+        self.api_key = os.environ.get('API_KEY', None)
         self.currency = options
         self.chosen_date = chosen_date
         self.limit, self.time_period, self.window_size = \
@@ -57,8 +54,11 @@ class CryptoReport:
         data = response['Data']
         return data
 
-    @staticmethod
-    def get_api_key():
-        config = configparser.ConfigParser()
-        config.read('main/config.ini')
-        return config['API']['KEY']
+    # @staticmethod
+    # def get_api_key():
+    #     config = configparser.ConfigParser()
+    #     path = os.path.join(str(get_project_root()), 'main/config.ini')
+    #     print("THE PATH IS: " + path)
+    #     config.read(path)
+    #
+    #     return config['API']['KEY']

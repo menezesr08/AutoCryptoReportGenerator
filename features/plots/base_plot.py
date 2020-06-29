@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 from main import helper
 from enums.plot_labels import PlotLabels
 import matplotlib.dates as mdates
+from main.utils import get_project_root
+import os
 
 
 class BasePlot:
@@ -17,11 +19,14 @@ class BasePlot:
         self.ax.patch.set_edgecolor('black')
         self.ax.patch.set_linewidth('1')
 
+        self.root = str(get_project_root())
+
     def create_plot(self):
         self.plot_lines()
         # self.apply_labels()
         self.apply_legend()
-        plt.savefig('main/images/historical_fig.png', bbox_inches="tight")
+        path = os.path.join(self.root, 'images/historical_fig.png')
+        plt.savefig(path)
         plt.close()
 
     def initialise_plot(self):

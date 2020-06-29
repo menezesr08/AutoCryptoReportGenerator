@@ -4,13 +4,18 @@ from features.trading_signals import TradingSignals
 
 from html import unescape
 
+from main.utils import get_project_root
+
+import os
+
 
 class PDFBuilder:
-    fpdf.set_global("SYSTEM_TTFONTS", 'C:\\Users\\menez\\PycharmProjects\\CryptoReportGenerator\\fonts')
+    fpdf.set_global("SYSTEM_TTFONTS", os.path.join(str(get_project_root()), 'fonts'))
 
     def __init__(self):
         self.document = fpdf.FPDF()
         self.add_global_fonts()
+        self.root = str(get_project_root())
 
     def add_global_fonts(self):
         self.document.add_font("NotoSans", style="B", fname="NotoSans-Bold.ttf", uni=True)
@@ -35,7 +40,7 @@ class PDFBuilder:
         self.add_section_body('This is a type of\nweighted moving average and gives\nmore importance to recent prices',
                               10)
 
-        image = 'C:\\Users\\menez\\PycharmProjects\\CryptoReportGenerator\\main\\images\\historical_fig.png'
+        image = os.path.join(self.root, 'images/historical_fig.png')
         self.document.image(image, x=85, y=40, w=205, h=110)
 
     def create_trading_signals_page(self):
@@ -47,7 +52,7 @@ class PDFBuilder:
             self.add_section_title(title, 14)
             self.add_section_body(text, 12)
 
-        image_url = 'C:\\Users\\menez\\PycharmProjects\\CryptoReportGenerator\\main\\images\\{}_fig.png'
+        image_url = os.path.join(self.root, 'images/{}_fig.png')
         image_1, image_2, image_3, image_4 = [image_url.format(key) for key in categories.keys()]
         self.document.image(image_1, x=90, y=35, w=110, h=80)
         self.document.image(image_2, x=200, y=35, w=100, h=80)
@@ -103,3 +108,7 @@ class PDFBuilder:
         self.document.set_text_color(211, 184, 140)
         self.document.set_font('NotoSans', 'CI', 14)
         self.document.multi_cell(0, 5, url)
+
+    def save_pdf_file(self):
+        path = os.path.join(self.root, 'pdfs/report.pdf')
+        self.document.output(path)

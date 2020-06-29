@@ -5,6 +5,8 @@ from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email import encoders
+from main.utils import get_project_root
+import os
 
 
 class EmailSender:
@@ -15,11 +17,12 @@ class EmailSender:
         self.port = 465
         self.context = ssl.create_default_context()
         self.message = MIMEMultipart("alternative")
+        self.root = str(get_project_root())
 
     def send_email(self):
         self.create_message()
         self.attach_pdf()
-        password = self.get_email_password()
+        password = os.environ.get('SEND_MAIL_PASSWORD', None)
         with smtplib.SMTP_SSL("smtp.gmail.com", self.port, context=self.context) as server:
             server.login(self.sender_email, password)
             server.sendmail(self.sender_email, self.receiver_email, self.message.as_string())
@@ -35,7 +38,7 @@ class EmailSender:
         self.message.attach(MIMEText(text, "plain"))
 
     def attach_pdf(self):
-        filename = "report.pdf"
+        filename = os.path.join(self.root, 'pdfs/report.pdf')
 
         with open(filename, "rb") as attachment:
             part = MIMEBase("application", "octet-stream")
@@ -44,14 +47,14 @@ class EmailSender:
         encoders.encode_base64(part)
         part.add_header(
             "Content-Disposition",
-            f"attachment; filename= {filename}",
+            f"attachment; filename= {os.path.basename(filename)}",
         )
         self.message.attach(part)
 
-    @staticmethod
-    def get_email_password():
-        config = configparser.ConfigParser()
-        config.read('main/config.ini')
-        return config['EMAIL']['PASSWORD']
+    # @staticmethod
+    # def get_email_password():
+    #     config = configparser.ConfigParser()
+    #     config.read(os.path.join(str(get_project_root()), 'main/config.ini'))
+    #     return config['EMAIL']['PASSWORD']
 
 

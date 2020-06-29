@@ -1,8 +1,3 @@
-import os
-import shutil
-
-import fpdf
-
 from features.historical_data_plots import HistoricalDataPlots
 from features.trading_signals import TradingSignals
 from main.api import CryptoReport
@@ -13,8 +8,6 @@ from main.pdf_builder import PDFBuilder
 class ReportGenerator:
 
     def __init__(self, currency, chosen_date, receiver_email):
-        # self.empty_folder('C:\\Users\\menez\\PycharmProjects\\Stock_Notifier\\main\\images')
-        # self.empty_folder('C:\\Users\\menez\\PycharmProjects\\Stock_Notifier\\main\\pdfs')
         self.currency = currency
         self.chosen_date = chosen_date
         self.receiver_email = receiver_email
@@ -29,32 +22,28 @@ class ReportGenerator:
 
     def generate_report(self):
         historical_data, trading_data, news_data = self.get_data_from_api()
-        self.historical_data_pdf(historical_data)
-        self.trading_data_pdf(trading_data)
-        self.news_data_pdf(news_data)
-        self.pdf.document.output('report.pdf')
-        EmailSender(self.receiver_email).send_email()
+        self.build_historical_data(historical_data)
+        self.build_trading_signals(trading_data)
+        self.build_news_page(news_data)
+        self.pdf.save_pdf_file()
+        self.send_report()
 
-    def historical_data_pdf(self, historical_data):
+    def build_historical_data(self, historical_data):
         HistoricalDataPlots(historical_data).create_plot()
         title = historical_data['title']
         time_period = historical_data['time_period'].value
         self.pdf.create_historical_data_page(title, time_period)
 
-    def trading_data_pdf(self, trading_data):
+    def build_trading_signals(self, trading_data):
         TradingSignals(trading_data).create_plots()
         self.pdf.create_trading_signals_page()
 
-    def news_data_pdf(self, news_data):
+    def build_news_page(self, news_data):
         self.pdf.create_news_page(news_data)
 
-    # def empty_folder(self, folder_path):
-    #     for file_object in os.listdir(folder_path):
-    #         file_object_path = os.path.join(folder_path, file_object)
-    #         if os.path.isfile(file_object_path) or os.path.islink(file_object_path):
-    #             os.unlink(file_object_path)
-    #         else:
-    #             shutil.rmtree(file_object_path)
+    def send_report(self):
+        EmailSender(self.receiver_email).send_email()
 
 
-
+report = ReportGenerator("BTC", "year", "velatrix0@gmail.com")
+report.generate_report()

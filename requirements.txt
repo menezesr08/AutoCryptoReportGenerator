@@ -1,11 +1,7 @@
-reportlab
-jinja2
-numpy
+redis
+rq
+flask
 pandas
 matplotlib
-plyer
 requests
-pywin32
-setuptools
-mypy
 fpdf==1.7.2
