@@ -7,7 +7,7 @@ import os
 from talisman import Talisman
 
 app = Flask(__name__)
-Talisman(app)
+Talisman(app, content_security_policy=None)
 que = Queue(connection=conn)
 
 
