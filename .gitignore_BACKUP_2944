@@ -1,0 +1,15 @@
+# Project exclude paths
+/venv/
+!/main/config.ini
+<<<<<<< HEAD
+.idea/
+.mypy_cache/
+__pycache__/
+*.py[cod]
+dist/
+build/
+bin/
+images/
+pdfs/
+=======
+>>>>>>> d709eb71fc83ba620e9ea70ed10e05b60d720c9c
