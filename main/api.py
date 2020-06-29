@@ -37,7 +37,6 @@ class CryptoReport:
         df.set_index('time')
         model = {'title': self.currency, 'data': df, 'time_period': self.time_period, 'window': self.window_size}
 
-        pickle.dump(model, open("../save.p", "wb"))
         return model
 
     def get_news_data(self):
