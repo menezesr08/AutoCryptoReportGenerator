@@ -29,4 +29,4 @@ def success():
 
 
 if __name__ == '__main__':
-    app.run(host='localhost', port='5002', debug=False)
+    app.run()
