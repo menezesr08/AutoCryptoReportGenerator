@@ -3,6 +3,7 @@ import run_report_script
 from background_task import create_report_task
 from worker import conn
 from rq import Queue
+import os
 
 app = Flask(__name__)
 que = Queue(connection=conn)
@@ -29,4 +30,5 @@ def success():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    port = int(os.environ.get("PORT", 5000))
+    app.run(debug=True, host='0.0.0.0', port=port)
