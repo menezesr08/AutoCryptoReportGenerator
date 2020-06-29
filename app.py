@@ -3,6 +3,7 @@ import run_report_script
 from background_task import create_report_task
 from worker import conn
 from rq import Queue
+import os
 
 app = Flask(__name__)
 que = Queue(connection=conn)
