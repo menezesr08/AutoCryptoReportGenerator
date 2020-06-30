@@ -5,6 +5,8 @@ This project creates a report based on your chosen cryptocurrency. The report co
 * Trading Signals Plots - These plots shows key signals that may be useful for traders.
 * Latest News - This is a compliation of the latest crypto news
 
+You can find the application here: https://crypto-report-generator.herokuapp.com/
+
 ## Project Installation
 Once you have downloaded the repository, perform these commands:
 
