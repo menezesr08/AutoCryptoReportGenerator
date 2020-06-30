@@ -4,11 +4,19 @@ from background_task import create_report_task
 from worker import conn
 from rq import Queue
 import os
-from talisman import Talisman
+
 
 app = Flask(__name__)
-Talisman(app, content_security_policy=None)
+
 que = Queue(connection=conn)
+
+
+@app.before_request
+def before_request():
+    if not request.is_secure and app.env != "development":
+        url = request.url.replace("http://", "https://", 1)
+        code = 301
+        return redirect(url, code=code)
 
 
 @app.route('/')
