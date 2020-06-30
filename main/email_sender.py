@@ -12,7 +12,7 @@ import os
 class EmailSender:
 
     def __init__(self, receiver_email):
-        self.sender_email = "cryptoreportgen5@gmail.com"
+        self.sender_email = os.environ.get('SEND_MAIL_USERNAME')
         self.receiver_email = receiver_email
         self.port = 465
         self.context = ssl.create_default_context()
