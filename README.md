@@ -31,7 +31,7 @@ You will need an api key from https://www.cryptocompare.com/. Please set the api
 
 You will also need to set up a test gmail account. Once you've created this account, please enable the feature in gmail settings: 
 
-Allowing less secure apps to access your account
+***Allowing less secure apps to access your account***
 
 You will then need to set up your gmail email and password as environment variables in this format:
 
