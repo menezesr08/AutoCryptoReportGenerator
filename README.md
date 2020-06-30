@@ -16,10 +16,12 @@ Once you have downloaded the repository, perform these commands:
 This project uses Redis to perform a background task so you will need to install Redis and set the local redis url as an environment variable. 
 
 Please set the local redis url as an environment variable in this format:
+
 REDIS_URL: redis://localhost:6379
 
 Please note: For windows users, you will need to install redis using the Windows Subsystem for Linux (WSL) platform. You can learn more here: 
 https://medium.com/@RedisLabs/windows-subsystem-for-linux-wsl-10e3ca4d434e
+
 Redis can be downloaded here: https://redis.io/download
 
 ### Environment Variables
