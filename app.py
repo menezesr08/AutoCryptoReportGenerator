@@ -11,14 +11,6 @@ app = Flask(__name__)
 que = Queue(connection=conn)
 
 
-@app.before_request
-def before_request():
-    if not request.is_secure and app.env != "development":
-        url = request.url.replace("http://", "https://", 1)
-        code = 301
-        return redirect(url, code=code)
-
-
 @app.route('/')
 def index():
     return render_template('index.html')
