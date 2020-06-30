@@ -17,7 +17,7 @@ This project uses Redis to perform a background task so you will need to install
 
 Please set the local redis url as an environment variable in this format:
 
-REDIS_URL: redis://localhost:6379
+**REDIS_URL: redis://localhost:6379**
 
 Please note: For windows users, you will need to install redis using the Windows Subsystem for Linux (WSL) platform. You can learn more here: 
 https://medium.com/@RedisLabs/windows-subsystem-for-linux-wsl-10e3ca4d434e
@@ -27,7 +27,7 @@ Redis can be downloaded here: https://redis.io/download
 ### Environment Variables
 You will need an api key from https://www.cryptocompare.com/. Please set the api key as an environment variable in this format:
 
-API_KEY: yourapikeyhere
+**API_KEY: yourapikeyhere**
 
 You will also need to set up a test gmail account. Once you've created this account, please enable the feature in gmail settings: 
 
@@ -35,9 +35,9 @@ Allowing less secure apps to access your account
 
 You will then need to set up your gmail email and password as environment variables in this format:
 
-SEND_MAIL_USERNAME: yourgmailusername
+**SEND_MAIL_USERNAME: yourgmailusername**
 
-SEND_MAIL_PASSWORD: yourgmailpassword
+**SEND_MAIL_PASSWORD: yourgmailpassword**
 
 
 
