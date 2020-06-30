@@ -26,13 +26,17 @@ Redis can be downloaded here: https://redis.io/download
 
 ### Environment Variables
 You will need an api key from https://www.cryptocompare.com/. Please set the api key as an environment variable in this format:
+
 API_KEY: yourapikeyhere
 
 You will also need to set up a test gmail account. Once you've created this account, please enable the feature in gmail settings: 
+
 Allowing less secure apps to access your account
 
 You will then need to set up your gmail email and password as environment variables in this format:
+
 SEND_MAIL_USERNAME: yourgmailusername
+
 SEND_MAIL_PASSWORD: yourgmailpassword
 
 
