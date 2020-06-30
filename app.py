@@ -5,7 +5,6 @@ from worker import conn
 from rq import Queue
 import os
 
-
 app = Flask(__name__)
 
 que = Queue(connection=conn)
@@ -14,6 +13,12 @@ que = Queue(connection=conn)
 @app.route('/')
 def index():
     return render_template('index.html')
+
+
+@app.after_request
+def add_security_headers(resp):
+    resp.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
+    return resp
 
 
 @app.route('/', methods=['POST'])
