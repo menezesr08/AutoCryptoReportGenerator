@@ -3,7 +3,7 @@ from features.plots.month_plot import MonthPlot
 from features.plots.week_plot import WeekPlot
 from features.plots.year_plot import YearPlot
 
-# testing
+
 class HistoricalDataPlots:
     def __init__(self, data):
         self.data = data
