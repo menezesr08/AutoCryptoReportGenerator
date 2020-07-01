@@ -28,4 +28,4 @@ class PlotLabels(Enum):
     ema_color = "blue"
     ema_linewidth = 1
     ema_alpha = 0.5
-    ema_label = "Simple moving\naverage"
+    ema_label = "Exponential moving\naverage"
