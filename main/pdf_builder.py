@@ -41,7 +41,7 @@ class PDFBuilder:
                               10)
 
         image = os.path.join(self.root, 'images/historical_fig.png')
-        self.document.image(image, x=85, y=40, w=205, h=110)
+        self.document.image(image, x=100, y=15, w=180, h=150)
 
     def create_trading_signals_page(self):
         self.document.add_page('L')

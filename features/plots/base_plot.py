@@ -31,8 +31,8 @@ class BasePlot:
 
     def initialise_plot(self):
         plt.style.use('seaborn-darkgrid')
-        my_dpi = 96
-        fig = plt.figure(figsize=(1440 / my_dpi, 800 / my_dpi), dpi=my_dpi)
+        my_dpi = 150
+        fig = plt.figure(figsize=(10, 10), dpi=my_dpi)
         ax = fig.add_subplot(111)
         ax.grid(True)
         return ax, fig
@@ -53,7 +53,7 @@ class BasePlot:
 
     def apply_legend(self):
         box = self.ax.get_position()
-        legend_prop = {'weight': 'bold', 'family': 'Times New Roman'}
+        legend_prop = {'family': 'Times New Roman'}
 
         self.ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
         # Put a legend to the right of the current axis
